@@ -33,6 +33,7 @@ export function fileToDataUrl(file) {
 }
 
 export const errorModalPop = (msg) => {
+	removeAllChildren("modal-body");
   const errorMsgText = document.createTextNode(msg);
   document.getElementById("modal-body").appendChild(errorMsgText);
   const modal = new bootstrap.Modal(document.getElementById("error-modal"));
@@ -41,7 +42,7 @@ export const errorModalPop = (msg) => {
 
 export const loadMainPage = () => {
   hideAllPages();
-  document.getElementById("navbar").style.display = "flex";
+  document.getElementById("navbar").style.display = "block";
   getChannelsInfo();
   document.getElementById("sidebar-main-page").style.display = "flex";
 };
@@ -50,6 +51,7 @@ export const hideAllPages = () => {
   document.getElementById("page-signin").style.display = "none";
   document.getElementById("page-register").style.display = "none";
   document.getElementById("navbar").style.display = "none";
+	document.getElementById("sidebar-main-page").style.display = "none";
 };
 
 export const removeAllChildren = (elementName) => {

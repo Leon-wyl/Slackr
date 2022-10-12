@@ -20,8 +20,7 @@ export const signin = () => {
         localStorage.setItem("token", data.token);
 				localStorage.setItem("email", email);
         localStorage.setItem("password", password);
-        console.log(data);
-        // window.location.hash = "";
+
         loadMainPage();
       });
     } else {

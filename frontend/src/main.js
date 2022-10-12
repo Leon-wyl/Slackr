@@ -1,6 +1,6 @@
 import { BACKEND_PORT } from "./config.js";
 // A helper you may want to use when uploading new images to the server.
-import { fileToDataUrl } from "./helpers.js";
+import { fileToDataUrl, hideAllPages } from "./helpers.js";
 import { register, signin } from "./auth.js";
 import { removeAllChildren } from "./helpers.js";
 import { createChannel } from "./channels.js";
@@ -17,9 +17,8 @@ document.getElementById("btn-register").addEventListener("click", () => {
 });
 
 document.getElementById("btn-to-register").addEventListener("click", () => {
+	hideAllPages();
   const registerPage = document.getElementById("page-register");
-  const signinPage = document.getElementById("page-signin");
-  signinPage.style.display = "none";
   registerPage.style.display = "flex";
 });
 
@@ -30,15 +29,14 @@ document.getElementById("btn-to-signin").addEventListener("click", () => {
   registerPage.style.display = "none";
 });
 
-document.getElementById("error-modal").addEventListener("hide.bs.modal", () => {
-  removeAllChildren("modal-body");
-});
-
+// Create channel modal behaviours
+const createChannelModal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
 document.getElementById("btn-create-channel").addEventListener('click', () => {
-	const modal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
-  modal.show();
+	// const modal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
+  createChannelModal.show();
 })
 
 document.getElementById("create-channel-submit").addEventListener('click', () => {
 	createChannel();
+	createChannelModal.hide();
 });
