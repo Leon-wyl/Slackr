@@ -1,9 +1,36 @@
 
 /* base styles, feel free to edit */
 html, body {
-    margin: 0;
-    padding: 0;
+    /* margin: 0;
+    padding: 0; */
     background-color: #fafafa;
     height: 100%;
     font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.page-auth {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page-auth form {
+	max-width: 330px;
+	flex-basis: 330px;
+}
+
+#page-register {
+	display: none;
+}
+
+.alert {
+	display: none;
+}
+
+nav {
+	display: none;
+}
+
+#sidebar-main-page {
+	display: none;
 }
