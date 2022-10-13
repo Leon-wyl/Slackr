@@ -58,13 +58,15 @@
       id="create-channel-modal"
       tabindex="-1"
       role="dialog"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="create-channel-modal-label"
       aria-hidden="true"
     >
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">
-            <h5 class="modal-title" id="exampleModalLabel">Create Channel</h5>
+            <h5 class="modal-title" id="create-channel-modal-label">
+              Create Channel
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -127,11 +129,115 @@
                 id="create-channel-submit"
                 type="reset"
                 class="btn btn-primary"
+                data-bs-dismiss="modal"
+                aria-label="Close"
               >
                 Create
               </button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel Info Modal -->
+    <div
+      class="modal fade"
+      id="channel-info-modal"
+      tabindex="-1"
+      aria-labelledby="channel-info-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="channel-info-modal-label">
+              Channel Info
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <h2 class="fs-6">Channel name</h2>
+            <p id="channel-name-info"></p>
+            <hr />
+            <h2 class="fs-6">Description</h2>
+            <p id="channel-description-info"></p>
+            <hr />
+            <h2 class="fs-6">Channel Status</h2>
+            <p id="channel-status-modal-info"></p>
+            <hr />
+            <h2 class="fs-6">Channel Creation Time</h2>
+            <p id="channel-creation-time-info"></p>
+            <hr />
+            <h2 class="fs-6">Channel Creator</h2>
+            <p id="channel-creator-info"></p>
+            <hr />
+            <h2 class="fs-6">Channel ID</h2>
+            <p id="channel-id-info"></p>
+            <hr />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Channel settings modal-->
+    <div
+      class="modal fade"
+      id="channel-settings-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="channel-settings-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="channel-settings-label">
+              Channel Settings
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="channel-settings-name"
+                placeholder="Enter Channel Name"
+              />
+              <label for="email1">Channel Name*</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="channel-settings-description"
+                placeholder="Description (Optional)"
+              />
+              <label for="description">Description (Optional)</label>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-center">
+            <button
+              id="channel-settings-submit"
+              type="reset"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Submit
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -249,7 +355,7 @@
 
     <!-- Navbar -->
     <div id="navbar">
-      <nav class="navbar bg-light">
+      <nav class="navbar bg-light w-100">
         <div class="container-fluid">
           <a class="navbar-brand">
             <img
@@ -267,40 +373,91 @@
       </nav>
     </div>
 
-    <!-- Sidebar -->
-    <div
-      id="sidebar-main-page"
-      class="flex-column align-items-stretch flex-shrink-0 bg-white overflow-hidden"
-      style="width: 380px"
-    >
-      <button
-        id="btn-create-channel"
-        type="button"
-        class="btn btn-primary btn-sm btn-block m-3" 
+    <!-- Main Page -->
+    <main style="display: flex">
+      <!-- Sidebar -->
+      <div
+        id="sidebar-main-page"
+        class="flex-column align-items-stretch flex-shrink-0 bg-white overflow-hidden"
+        style="width: 380px"
       >
-        Create Channel
-      </button>
-      <div id="channel-list">
-        <div
-          class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
+        <button
+          id="btn-create-channel"
+          type="button"
+          class="btn btn-primary btn-sm btn-block m-3"
+          data-bs-toggle="modal"
+          data-bs-target="#create-channel-modal"
         >
-          <span class="fs-5 fw-semibold">Public Channels</span>
+          Create Channel
+        </button>
+        <div id="channel-list">
+          <div
+            class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
+          >
+            <span class="fs-5 fw-semibold">Public Channels</span>
+          </div>
+          <div
+            id="public-channels-list"
+            class="list-group list-group-flush border-bottom scrollarea"
+          ></div>
+          <div
+            class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
+          >
+            <span class="fs-5 fw-semibold">Private Channels</span>
+          </div>
+          <div
+            id="private-channels-list"
+            class="list-group list-group-flush border-bottom scrollarea"
+          ></div>
         </div>
-        <div
-          id="public-channels-list"
-          class="list-group list-group-flush border-bottom scrollarea"
-        ></div>
-        <div
-          class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
-        >
-          <span class="fs-5 fw-semibold">Private Channels</span>
-        </div>
-        <div
-          id="private-channels-list"
-          class="list-group list-group-flush border-bottom scrollarea"
-        ></div>
       </div>
-    </div>
+
+      <!-- Channel -->
+      <div id="channel">
+        <div id="channel-card" class="card m-1">
+          <div class="d-flex card-header justify-content-between">
+            <h5 id="channel-name" class="m-1"></h5>
+            <div class="text-center">
+              <div class="row gx-1">
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#channel-info-modal"
+                  >
+                    Info
+                  </button>
+                </div>
+                <div class="col">
+                  <button
+                    type="button"
+                    class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#channel-settings-modal"
+                  >
+                    Settings
+                  </button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-danger btn-sm">
+                    Leave
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">
+              With supporting text below as a natural lead-in to additional
+              content.
+            </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </main>
 
     <script type="module" src="src/main.js"></script>
   </body>

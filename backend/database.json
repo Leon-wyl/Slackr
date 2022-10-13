@@ -46,7 +46,7 @@
       "name": "Leon 7",
       "creator": 19712,
       "private": false,
-      "description": "asdfsdf",
+      "description": "asdfasdfasdfasdfasdf",
       "createdAt": "2022-10-12T18:06:23.521Z",
       "members": [
         19712
@@ -68,7 +68,7 @@
       "name": "asdf",
       "creator": 19712,
       "private": false,
-      "description": "asdf",
+      "description": "asdfasdfasdf",
       "createdAt": "2022-10-12T17:42:09.640Z",
       "members": [
         19712
@@ -81,6 +81,17 @@
       "private": true,
       "description": "asdfsd",
       "createdAt": "2022-10-12T17:30:58.472Z",
+      "members": [
+        19712
+      ],
+      "messages": []
+    },
+    "315010": {
+      "name": "Channel n",
+      "creator": 19712,
+      "private": false,
+      "description": "asdfasdfasdf",
+      "createdAt": "2022-10-13T08:22:41.689Z",
       "members": [
         19712
       ],

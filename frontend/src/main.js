@@ -3,7 +3,7 @@ import { BACKEND_PORT } from "./config.js";
 import { fileToDataUrl, hideAllPages } from "./helpers.js";
 import { register, signin } from "./auth.js";
 import { removeAllChildren } from "./helpers.js";
-import { createChannel } from "./channels.js";
+import { createChannel, getSingleChannelInfo, editChannel } from "./channels.js";
 
 console.log("Let's go!");
 
@@ -29,14 +29,25 @@ document.getElementById("btn-to-signin").addEventListener("click", () => {
   registerPage.style.display = "none";
 });
 
-// Create channel modal behaviours
-const createChannelModal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
-document.getElementById("btn-create-channel").addEventListener('click', () => {
-	// const modal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
-  createChannelModal.show();
-})
+// // Create channel modal behaviours
+// const createChannelModal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
+// document.getElementById("btn-create-channel").addEventListener('click', () => {
+// 	// const modal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
+//   createChannelModal.show();
+// })
 
 document.getElementById("create-channel-submit").addEventListener('click', () => {
 	createChannel();
-	createChannelModal.hide();
+});
+
+document.getElementById("public-channels-list").addEventListener('click', (event) => {
+  getSingleChannelInfo(event);
+});
+
+document.getElementById("private-channels-list").addEventListener('click', (event) => {
+  getSingleChannelInfo(event);
+});
+
+document.getElementById("channel-settings-submit").addEventListener('click', () => {
+  editChannel();
 });

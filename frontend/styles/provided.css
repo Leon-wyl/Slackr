@@ -39,3 +39,12 @@ html, body {
 #channel-list {
 	overflow: scroll;
 }
+
+#channel-card {
+	display: none;
+	width: calc(100vw - 380px);
+}
+
+main {
+	width: 100vw;
+}

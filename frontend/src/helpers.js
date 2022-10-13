@@ -42,9 +42,10 @@ export const errorModalPop = (msg) => {
 
 export const loadMainPage = () => {
   hideAllPages();
-  document.getElementById("navbar").style.display = "block";
+  document.getElementById("navbar").style.display = "flex";
   getChannelsInfo();
   document.getElementById("sidebar-main-page").style.display = "flex";
+  document.getElementById("channel").style.display = "none";
 };
 
 export const hideAllPages = () => {
@@ -60,3 +61,7 @@ export const removeAllChildren = (elementName) => {
     element.removeChild(element.lastChild);
   }
 };
+
+export const insertAfter = (newNode, existingNode) => {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
