@@ -40,6 +40,7 @@ html, body {
 	overflow: scroll;
 }
 
+
 #channel-card {
 	display: none;
 	width: calc(100vw - 380px);
@@ -48,4 +49,17 @@ html, body {
 main {
 	width: 100vw;
 	overflow: hidden;
+}
+
+#channel-unjoined-card {
+	display: none;
+	width: calc(100vw - 380px);
+}
+
+.navbar-brand:hover {
+	cursor: pointer;
+}
+
+#sidebar-main-page {
+	width: 380px;
 }

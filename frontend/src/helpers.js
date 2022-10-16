@@ -1,4 +1,4 @@
-import { getChannelsInfo } from "./channels.js";
+import { fetchChannelsInfo } from "./channelsApi.js";
 
 /**
  * Given a js file object representing a jpg or png image, such as one taken
@@ -33,19 +33,37 @@ export function fileToDataUrl(file) {
 }
 
 export const errorModalPop = (msg) => {
-	removeAllChildren("modal-body");
+  removeAllChildren("notification-modal-title");
+	removeAllChildren("notification-modal-body");
+  const errorLable = document.createTextNode("Error");
+  document.getElementById("notification-modal-title").appendChild(errorLable);
   const errorMsgText = document.createTextNode(msg);
-  document.getElementById("modal-body").appendChild(errorMsgText);
-  const modal = new bootstrap.Modal(document.getElementById("error-modal"));
+  document.getElementById("notification-modal-body").appendChild(errorMsgText);
+  const modal = new bootstrap.Modal(document.getElementById("notification-modal"));
+  modal.show();
+};
+
+export const successModalPop = (msg) => {
+  removeAllChildren("notification-modal-title");
+	removeAllChildren("notification-modal-body");
+  const errorLable = document.createTextNode("Success");
+  document.getElementById("notification-modal-title").appendChild(errorLable);
+  const errorMsgText = document.createTextNode(msg);
+  document.getElementById("notification-modal-body").appendChild(errorMsgText);
+  const modal = new bootstrap.Modal(document.getElementById("notification-modal"));
   modal.show();
 };
 
 export const loadMainPage = () => {
   hideAllPages();
   document.getElementById("navbar").style.display = "flex";
-  getChannelsInfo();
+  fetchChannelsInfo();
   document.getElementById("sidebar-main-page").style.display = "flex";
   document.getElementById("channel").style.display = "none";
+  document.getElementById("channel-unjoined-card").style.display = "none";
+  if (window.innerWidth < 800) {
+    document.getElementById("sidebar-main-page").style.width = "100vw";
+  }
 };
 
 export const hideAllPages = () => {

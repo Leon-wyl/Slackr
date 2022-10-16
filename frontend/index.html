@@ -28,18 +28,18 @@
   </head>
 
   <body>
-    <!-- Error Modal -->
+    <!-- Notification Modal -->
     <div
       class="modal fade"
-      id="error-modal"
+      id="notification-modal"
       tabindex="-1"
-      aria-labelledby="error-modal-label"
+      aria-labelledby="notification-modal-label"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="error-modal-label">Error</h1>
+            <h1 class="modal-title fs-5" id="notification-modal-title"></h1>
             <button
               type="button"
               class="btn-close"
@@ -47,7 +47,7 @@
               aria-label="Close"
             ></button>
           </div>
-          <div id="modal-body" class="modal-body"></div>
+          <div id="notification-modal-body" class="modal-body"></div>
         </div>
       </div>
     </div>
@@ -176,10 +176,6 @@
             <hr />
             <h2 class="fs-6">Channel Creator</h2>
             <p id="channel-creator-info"></p>
-            <hr />
-            <h2 class="fs-6">Channel ID</h2>
-            <p id="channel-id-info"></p>
-            <hr />
           </div>
         </div>
       </div>
@@ -236,6 +232,46 @@
               aria-label="Close"
             >
               Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leave Channel Modal -->
+    <div
+      class="modal fade"
+      id="leave-modal"
+      tabindex="-1"
+      aria-labelledby="leave-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="leave-modal-label">
+              Leave Channel
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="modal-body" class="modal-body">
+            <p>Are you sure to leave the channel?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              No, I will stay here
+            </button>
+            <button id="leave-modal-button" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+              Yes, I am leaving the channel
             </button>
           </div>
         </div>
@@ -357,7 +393,7 @@
     <div id="navbar">
       <nav class="navbar bg-light w-100">
         <div class="container-fluid">
-          <a class="navbar-brand">
+          <a class="navbar-brand" id="logo">
             <img
               src="./Assets/logo-no-background.png"
               alt="Slackr"
@@ -379,7 +415,6 @@
       <div
         id="sidebar-main-page"
         class="flex-column align-items-stretch flex-shrink-0 bg-white overflow-hidden"
-        style="width: 380px"
       >
         <button
           id="btn-create-channel"
@@ -440,7 +475,12 @@
                   </button>
                 </div>
                 <div class="col">
-                  <button type="button" class="btn btn-danger btn-sm">
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#leave-modal"
+                  >
                     Leave
                   </button>
                 </div>
@@ -457,6 +497,19 @@
           </div>
         </div>
       </div>
+
+      <div id="channel-unjoined">
+        <div id="channel-unjoined-card" class="card m-1">
+          <div class="d-flex card-header justify-content-between">
+            <h5 id="channel-unjoined-name" class="m-1"></h5>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title text-center">You haven't join this channel</h5>
+            <div class="d-flex justify-content-center"><a href="#" class="btn btn-primary" id="join-btn-unjoined-card">Join</a></div>
+          </div>
+        </div>
+      </div>
+
     </main>
 
     <script type="module" src="src/main.js"></script>

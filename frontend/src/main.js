@@ -1,9 +1,9 @@
 import { BACKEND_PORT } from "./config.js";
 // A helper you may want to use when uploading new images to the server.
-import { fileToDataUrl, hideAllPages } from "./helpers.js";
+import { fileToDataUrl, hideAllPages, loadMainPage } from "./helpers.js";
 import { register, signin } from "./auth.js";
 import { removeAllChildren } from "./helpers.js";
-import { createChannel, getSingleChannelInfo, editChannel } from "./channels.js";
+import { createChannel, getSingleChannelInfo, editChannel, leaveChannel, joinChannel } from "./channels.js";
 
 console.log("Let's go!");
 
@@ -51,3 +51,15 @@ document.getElementById("private-channels-list").addEventListener('click', (even
 document.getElementById("channel-settings-submit").addEventListener('click', () => {
   editChannel();
 });
+
+document.getElementById("leave-modal-button").addEventListener('click', () => {
+  leaveChannel();
+});
+
+document.getElementById("join-btn-unjoined-card").addEventListener('click', () => {
+  joinChannel();
+})
+
+document.getElementById("logo").addEventListener('click', () => {
+  loadMainPage();
+})

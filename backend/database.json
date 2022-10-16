@@ -39,18 +39,48 @@
       "bio": null,
       "image": null,
       "sessionActive": true
+    },
+    "56563": {
+      "email": "afsdfasd",
+      "name": "afsdfasd",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
+    },
+    "75659": {
+      "email": "c@123.com",
+      "name": "123",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
+    },
+    "79387": {
+      "email": "d@123.com",
+      "name": "1234",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
+    },
+    "92329": {
+      "email": "e@123.com",
+      "name": "12345",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
     }
   },
   "channels": {
     "198908": {
-      "name": "Leon 7",
+      "name": "channel 10",
       "creator": 19712,
       "private": false,
-      "description": "asdfasdfasdfasdfasdf",
+      "description": "welcome to channel 10",
       "createdAt": "2022-10-12T18:06:23.521Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "230047": {
@@ -59,19 +89,18 @@
       "private": true,
       "description": "asdfasd",
       "createdAt": "2022-10-12T17:30:29.912Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "261372": {
-      "name": "asdf",
+      "name": "123",
       "creator": 19712,
       "private": false,
-      "description": "asdfasdfasdf",
+      "description": "123456",
       "createdAt": "2022-10-12T17:42:09.640Z",
       "members": [
-        19712
+        19712,
+        92329
       ],
       "messages": []
     },
@@ -87,10 +116,10 @@
       "messages": []
     },
     "315010": {
-      "name": "Channel n",
+      "name": "Channel n+1",
       "creator": 19712,
       "private": false,
-      "description": "asdfasdfasdf",
+      "description": "n+1",
       "createdAt": "2022-10-13T08:22:41.689Z",
       "members": [
         19712
@@ -114,9 +143,7 @@
       "private": false,
       "description": "sdfs",
       "createdAt": "2022-10-12T17:35:51.768Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "417131": {
@@ -125,6 +152,17 @@
       "private": true,
       "description": "sdfgsdfg",
       "createdAt": "2022-10-12T17:54:40.142Z",
+      "members": [
+        19712
+      ],
+      "messages": []
+    },
+    "519694": {
+      "name": "channel infinity 1",
+      "creator": 19712,
+      "private": false,
+      "description": "1",
+      "createdAt": "2022-10-16T06:56:44.684Z",
       "members": [
         19712
       ],
@@ -147,9 +185,7 @@
       "private": true,
       "description": "Hello",
       "createdAt": "2022-10-12T17:20:12.792Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "566018": {
@@ -158,9 +194,7 @@
       "private": true,
       "description": "sdfa",
       "createdAt": "2022-10-12T17:21:44.409Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "572887": {
@@ -169,6 +203,17 @@
       "private": true,
       "description": "asdfsd",
       "createdAt": "2022-10-12T17:39:58.679Z",
+      "members": [
+        19712
+      ],
+      "messages": []
+    },
+    "578545": {
+      "name": "123456789",
+      "creator": 19712,
+      "private": false,
+      "description": "number",
+      "createdAt": "2022-10-16T07:26:24.350Z",
       "members": [
         19712
       ],
@@ -213,9 +258,7 @@
       "private": true,
       "description": "asdf",
       "createdAt": "2022-10-12T18:06:10.560Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "813580": {
@@ -226,7 +269,8 @@
       "createdAt": "2021-09-13T08:00:03.220Z",
       "members": [
         15272,
-        56422
+        56422,
+        19712
       ],
       "messages": [
         {
@@ -679,9 +723,7 @@
       "private": true,
       "description": "Hello",
       "createdAt": "2022-10-12T17:21:10.130Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "906599": {

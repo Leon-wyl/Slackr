@@ -1,40 +1,10 @@
 import { BACKEND_PORT } from "./config.js";
-import { errorModalPop, insertAfter, removeAllChildren } from "./helpers.js";
-import { getFetch } from "./api.js";
-
-export const getChannelsInfo = () => {
-  const token = localStorage.getItem("token");
-  fetch(`http://localhost:${BACKEND_PORT}/channel`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + token,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        res
-          .json()
-          .then((data) => {
-            console.log(data.channels);
-            const publicChannels = data.channels.filter(
-              (channel) => !channel.private
-            );
-            const privateChannels = data.channels.filter(
-              (channel) => channel.private
-            );
-            loadChannels(publicChannels, "public-channels-list");
-            loadChannels(privateChannels, "private-channels-list");
-          })
-          .catch((err) => {
-            errorModalPop(err);
-          });
-      }
-    })
-    .catch((err) => {
-      errorModalPop(err);
-    });
-};
+import {
+  errorModalPop,
+  loadMainPage,
+  removeAllChildren,
+} from "./helpers.js";
+import { fetchEditChannel, fetchJoinChannel, fetchLeaveChannel, fetchCreatorName, fetchChannelInfo, fetchChannelsInfo, fetchCreateChannel } from "./channelsApi.js";
 
 export const createChannel = () => {
   const channelName = document.getElementById("create-channel-name").value;
@@ -48,13 +18,12 @@ export const createChannel = () => {
   if (!channelName) {
     errorModalPop("Channel name cannot be empty!");
   }
-
   const token = localStorage.getItem("token");
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token,
+      Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
       name: channelName,
@@ -63,25 +32,10 @@ export const createChannel = () => {
     }),
   };
 
-  fetch(`http://localhost:${BACKEND_PORT}/channel`, options)
-    .then((res) => {
-      console.log(res);
-      if (res.ok) {
-        res.json().then(() => {
-          getChannelsInfo();
-        });
-      } else {
-        res.json().then((data) => {
-          errorModalPop(data.error);
-        });
-      }
-    })
-    .catch((err) => {
-      errorModalPop(err);
-    });
+  fetchCreateChannel(options);
 };
 
-const loadChannels = (channels, listId) => {
+export const loadChannels = (channels, listId) => {
   removeAllChildren(listId);
   channels.map((channel) => {
     // Create a button element of channel, append it to the channel list
@@ -97,7 +51,11 @@ const loadChannels = (channels, listId) => {
     const divElement = document.createElement("div");
     divElement.setAttribute(
       "class",
-      " w-100 align-items-center justify-content-between"
+      "w-100 align-items-center justify-content-between"
+    );
+    divElement.setAttribute(
+      "id",
+      "name-channel-list"
     );
     buttonElement.appendChild(divElement);
     // create a text node of channel name, append it to the previous div
@@ -109,34 +67,12 @@ const loadChannels = (channels, listId) => {
 export const getSingleChannelInfo = (event) => {
   const listItem = event.target.closest("button");
   if (!listItem) return;
+  const channelName = listItem.querySelector("#name-channel-list").firstChild.nodeValue;
   const channelId = listItem.dataset.id;
-  const token = localStorage.getItem("token");
-  fetch(`http://localhost:${BACKEND_PORT}/channel/${channelId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        res
-          .json()
-          .then((data) => {
-            console.log(data);
-            createChannelCard(data, channelId);
-          })
-          .catch((err) => {
-            errorModalPop(err);
-          });
-      }
-    })
-    .catch((err) => {
-      errorModalPop(err);
-    });
+  fetchChannelInfo(channelId, channelName);
 };
 
-const createChannelCard = (data, channelId) => {
+export const createChannelCard = (data, channelId) => {
   // Create text node for info
   const name1 = document.createTextNode(data.name);
   const name2 = document.createTextNode(data.name);
@@ -146,7 +82,6 @@ const createChannelCard = (data, channelId) => {
     : document.createTextNode("Public");
   const dateObject = new Date(data.createdAt);
   const date = document.createTextNode(dateObject.toString());
-  const id = document.createTextNode(channelId);
   // Info modal and channel header remove children
   removeAllChildren("channel-name-info");
   removeAllChildren("channel-description-info");
@@ -155,53 +90,23 @@ const createChannelCard = (data, channelId) => {
   removeAllChildren("channel-creator-info");
   removeAllChildren("channel-name");
   removeAllChildren("channel-creator-info");
-  removeAllChildren("channel-id-info");
   // Append new node to the modal and header
   document.getElementById("channel-name-info").appendChild(name1);
   document.getElementById("channel-description-info").appendChild(description);
   document.getElementById("channel-status-modal-info").appendChild(status);
   document.getElementById("channel-creation-time-info").appendChild(date);
   document.getElementById("channel-creation-time-info").appendChild(date);
-  document.getElementById("channel-id-info").appendChild(id);
   document.getElementById("channel-name").appendChild(name2);
-  getCreatorName(data.creator);
+  fetchCreatorName(data.creator);
   // Load channel name and description of settings
   document.getElementById("channel-settings-name").value = data.name;
   document.getElementById("channel-settings-description").value =
     data.description;
   // set channel card to display
+  document.getElementById("channel").setAttribute("data-id", channelId);
+  document.getElementById("channel-card").style.display = "none";
   document.getElementById("channel").style.display = "flex";
   document.getElementById("channel-card").style.display = "flex";
-};
-
-const getCreatorName = (id) => {
-  const token = localStorage.getItem("token");
-  fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + token,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        res
-          .json()
-          .then((data) => {
-            console.log(data.name);
-            const creator = document.createTextNode(data.name);
-            document
-              .getElementById("channel-creator-info")
-              .appendChild(creator);
-          })
-          .catch((err) => {
-            errorModalPop(err);
-          });
-      }
-    })
-    .catch((err) => {
-      errorModalPop(err);
-    });
 };
 
 export const editChannel = () => {
@@ -209,19 +114,19 @@ export const editChannel = () => {
   const description = document.getElementById(
     "channel-settings-description"
   ).value;
-  
+
   if (!name) {
     errorModalPop("Channel name cannot be empty");
     return;
   }
 
-  const channelId = document.getElementById('channel-id-info').firstChild.nodeValue
+  const channelId = document.getElementById("channel").dataset.id;
   const token = localStorage.getItem("token");
   const options = {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token,
+      Authorization: "Bearer " + token,
     },
     body: JSON.stringify({
       name,
@@ -229,28 +134,31 @@ export const editChannel = () => {
     }),
   };
 
-  fetch(`http://localhost:${BACKEND_PORT}/channel/${channelId}`, options)
-  .then((res) => {
-    console.log(res);
-    if (res.ok) {
-      res.json().then(() => {
-        // Copy the text in setting to info if success
-        const edittedName = document.getElementById("channel-settings-name").value;
-        const edittedDes = document.getElementById("channel-settings-description").value;
-        removeAllChildren("channel-name-info");
-        removeAllChildren("channel-description-info");
-        const edittedNameNode = document.createTextNode(edittedName);
-        const edittedDesNode = document.createTextNode(edittedDes);
-        document.getElementById("channel-name-info").appendChild(edittedNameNode);
-        document.getElementById("channel-description-info").appendChild(edittedDesNode);
-      });
-    } else {
-      res.json().then((data) => {
-        errorModalPop(data.error);
-      });
-    }
-  })
-  .catch((err) => {
-    errorModalPop(err);
-  });
+  fetchEditChannel(channelId, options);
+  fetchChannelInfo(channelId);
+  fetchChannelsInfo();
 };
+
+export const leaveChannel = () => {
+  const channelElement = document.getElementById("channel");
+  const channelId = channelElement.dataset.id;
+  fetchLeaveChannel(channelId);
+  loadMainPage();
+};
+
+export const showUnjoinedChannel = (channelId, channelName) => {
+  document.getElementById("channel-card").style.display = "none";
+  removeAllChildren("channel-unjoined-name")
+  const channelNameElement = document.getElementById("channel-unjoined-name");
+  const nameTextNode = document.createTextNode(channelName);
+  channelNameElement.appendChild(nameTextNode);
+  document.getElementById("channel-unjoined").setAttribute("data-id", channelId);
+  document.getElementById("channel-unjoined-card").style.display = "flex";
+}
+
+export const joinChannel = () => {
+  const token = localStorage.getItem("token");
+  const channelId = document.getElementById("channel-unjoined").dataset.id;
+  const channelName = document.getElementById("channel-unjoined-name").firstChild.nodeValue;
+  fetchJoinChannel(token, channelId, channelName);
+}

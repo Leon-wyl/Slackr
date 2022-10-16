@@ -17,10 +17,9 @@ export const signin = () => {
     console.log(res);
     if (res.ok) {
       res.json().then((data) => {
+        console.log(data);
         localStorage.setItem("token", data.token);
-				localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-
+        localStorage.setItem("userId", data.userId);
         loadMainPage();
       });
     } else {
@@ -60,8 +59,7 @@ export const register = () => {
     if (res.ok) {
       res.json().then((data) => {
         localStorage.setItem("token", data.token);
-				localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
+				localStorage.setItem("userId", data.userId);
       
         loadMainPage();
       });
