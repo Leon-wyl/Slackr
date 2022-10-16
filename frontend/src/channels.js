@@ -1,10 +1,14 @@
-import { BACKEND_PORT } from "./config.js";
+import { errorModalPop, loadMainPage, removeAllChildren } from "./helpers.js";
 import {
-  errorModalPop,
-  loadMainPage,
-  removeAllChildren,
-} from "./helpers.js";
-import { fetchEditChannel, fetchJoinChannel, fetchLeaveChannel, fetchCreatorName, fetchChannelInfo, fetchChannelsInfo, fetchCreateChannel } from "./channelsApi.js";
+  fetchEditChannel,
+  fetchJoinChannel,
+  fetchLeaveChannel,
+  fetchCreatorName,
+  fetchChannelInfo,
+  fetchChannelsInfo,
+  fetchCreateChannel,
+} from "./channelsApi.js";
+import { fetchMessages } from "./messagesApi.js";
 
 export const createChannel = () => {
   const channelName = document.getElementById("create-channel-name").value;
@@ -53,10 +57,7 @@ export const loadChannels = (channels, listId) => {
       "class",
       "w-100 align-items-center justify-content-between"
     );
-    divElement.setAttribute(
-      "id",
-      "name-channel-list"
-    );
+    divElement.setAttribute("id", "name-channel-list");
     buttonElement.appendChild(divElement);
     // create a text node of channel name, append it to the previous div
     const textNode = document.createTextNode(channel.name);
@@ -67,7 +68,8 @@ export const loadChannels = (channels, listId) => {
 export const getSingleChannelInfo = (event) => {
   const listItem = event.target.closest("button");
   if (!listItem) return;
-  const channelName = listItem.querySelector("#name-channel-list").firstChild.nodeValue;
+  const channelName =
+    listItem.querySelector("#name-channel-list").firstChild.nodeValue;
   const channelId = listItem.dataset.id;
   fetchChannelInfo(channelId, channelName);
 };
@@ -95,7 +97,6 @@ export const createChannelCard = (data, channelId) => {
   document.getElementById("channel-description-info").appendChild(description);
   document.getElementById("channel-status-modal-info").appendChild(status);
   document.getElementById("channel-creation-time-info").appendChild(date);
-  document.getElementById("channel-creation-time-info").appendChild(date);
   document.getElementById("channel-name").appendChild(name2);
   fetchCreatorName(data.creator);
   // Load channel name and description of settings
@@ -104,9 +105,20 @@ export const createChannelCard = (data, channelId) => {
     data.description;
   // set channel card to display
   document.getElementById("channel").setAttribute("data-id", channelId);
-  document.getElementById("channel-card").style.display = "none";
   document.getElementById("channel").style.display = "flex";
+  document.getElementById("channel-unjoined").style.display = "none";
   document.getElementById("channel-card").style.display = "flex";
+  if (window.innerWidth < 600) {
+    document.getElementById("sidebar-main-page").style.display = "none";
+    document.getElementById("channel").style.width = "100vw";
+    document.getElementById("channel").style.height = "calc(100vh - 60px)";
+    document.getElementById("channel-card").style.width = "100vw";
+    document.getElementById("channel-card").style.height = "100%";
+  } else if (window.innerWidth < 1000) {
+    document.getElementById("channel").style.width = "calc(100vw - 240px)";
+    document.getElementById("channel-card").style.width = "100%";
+  }
+  fetchMessages(channelId, 0);
 };
 
 export const editChannel = () => {
@@ -147,18 +159,34 @@ export const leaveChannel = () => {
 };
 
 export const showUnjoinedChannel = (channelId, channelName) => {
-  document.getElementById("channel-card").style.display = "none";
-  removeAllChildren("channel-unjoined-name")
+  document.getElementById("channel").style.display = "none";
+  removeAllChildren("channel-unjoined-name");
   const channelNameElement = document.getElementById("channel-unjoined-name");
   const nameTextNode = document.createTextNode(channelName);
   channelNameElement.appendChild(nameTextNode);
-  document.getElementById("channel-unjoined").setAttribute("data-id", channelId);
+  document
+    .getElementById("channel-unjoined")
+    .setAttribute("data-id", channelId);
+  document.getElementById("channel-unjoined").style.display = "flex";
   document.getElementById("channel-unjoined-card").style.display = "flex";
-}
+  if (window.innerWidth < 600) {
+    document.getElementById("sidebar-main-page").style.display = "none";
+    document.getElementById("channel-unjoined").style.width = "100vw";
+    document.getElementById("channel-unjoined-card").style.width = "100vw";
+    document.getElementById("channel-unjoined").style.height =
+      "calc(100vh - 60px)";
+    document.getElementById("channel-unjoined-card").style.height = "100vh";
+  } else if (window.innerWidth < 1000) {
+    document.getElementById("channel-unjoined").style.width =
+      "calc(100vw - 240px)";
+    document.getElementById("channel-unjoined-card").style.width = "100%";
+  }
+};
 
 export const joinChannel = () => {
   const token = localStorage.getItem("token");
   const channelId = document.getElementById("channel-unjoined").dataset.id;
-  const channelName = document.getElementById("channel-unjoined-name").firstChild.nodeValue;
+  const channelName = document.getElementById("channel-unjoined-name")
+    .firstChild.nodeValue;
   fetchJoinChannel(token, channelId, channelName);
-}
+};

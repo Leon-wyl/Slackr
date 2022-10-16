@@ -61,8 +61,10 @@ export const loadMainPage = () => {
   document.getElementById("sidebar-main-page").style.display = "flex";
   document.getElementById("channel").style.display = "none";
   document.getElementById("channel-unjoined-card").style.display = "none";
-  if (window.innerWidth < 800) {
-    document.getElementById("sidebar-main-page").style.width = "100vw";
+  if (window.innerWidth < 600) {
+  document.getElementById("sidebar-main-page").style.width = "100vw";
+  } else if (window.innerWidth < 1000) {
+    document.getElementById("sidebar-main-page").style.width = "240px";
   }
 };
 

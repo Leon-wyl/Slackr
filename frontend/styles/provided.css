@@ -63,3 +63,12 @@ main {
 #sidebar-main-page {
 	width: 380px;
 }
+
+#message-box {
+	height: 93%;
+	margin-bottom: 0.5rem;
+}
+
+#input-box {
+	height: 7%;
+}
