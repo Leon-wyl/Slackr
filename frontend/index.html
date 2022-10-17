@@ -270,7 +270,12 @@
             >
               No, I will stay here
             </button>
-            <button id="leave-modal-button" data-bs-dismiss="modal" type="button" class="btn btn-danger">
+            <button
+              id="leave-modal-button"
+              data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-danger"
+            >
               Yes, I am leaving the channel
             </button>
           </div>
@@ -489,18 +494,22 @@
           </div>
           <div class="card-body">
             <div id="message-box" class="card w-99">
-              <div class="card-body">
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              </div>
+              <div id="all-messages" class="card-body"></div>
             </div>
             <div id="input-box" class="card w-99 h-10">
               <div class="card-body">
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text">
+                  With supporting text below as a natural lead-in to additional
+                  content.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- End of all message marker-->
+      <div id="end-of-all-messages" data-id="-1"></div>
 
       <div id="channel-unjoined">
         <div id="channel-unjoined-card" class="card m-1">
@@ -508,13 +517,67 @@
             <h5 id="channel-unjoined-name" class="m-1"></h5>
           </div>
           <div class="card-body">
-            <h5 class="card-title text-center">You haven't joined this channel</h5>
-            <div class="d-flex justify-content-center"><a href="#" class="btn btn-primary" id="join-btn-unjoined-card">Join</a></div>
+            <h5 class="card-title text-center">
+              You haven't joined this channel
+            </h5>
+            <div class="d-flex justify-content-center">
+              <a href="#" class="btn btn-primary" id="join-btn-unjoined-card"
+                >Join</a
+              >
+            </div>
           </div>
         </div>
       </div>
-
     </main>
+
+    <!-- Single Message Template-->
+    <div id="single-message" class="my-4">
+      <div
+        id="avatar-message-container" class="align-items-center"
+      >
+        <img
+          class="avatar-message d-inline-block"
+          src="./Assets/avatar.png"
+          width="36"
+          height="36"
+        />
+      </div>
+      <div class="d-inline-block text-message-container">
+        <p id="user-name-message" class="user-name-message text-primary"></p>
+        <p id="text-message" class="text-message"></p>
+        <div class="time-message text-secondary">
+          <p id="sent-at-title" class="sent-at-title">Sent At:</p>
+          <p id="sent-at-message" class="sent-at-message"></p>
+          <p id="edited-at-title" class="edited-at-title">&nbsp;&nbsp;Edited At:</p>
+          <p id="edited-at-message" class="edited-at-message"></p>
+        </div>
+        <div class="d-flex justfy-content-left options-message">
+          <a class="edit-message">Edit</a
+          ><a class="delete-message">Delete</a
+          ><button
+            class="smile-react btn btn-primary btn-sm"
+            data-clicked="false"
+          >
+            &#128512;</button
+          ><button
+            class="normal-react btn btn-primary btn-sm"
+            data-clicked="false"
+          >
+            &#128563;</button
+          ><button
+            class="cry-react btn btn-primary btn-sm"
+            data-clicked="false"
+          >
+            &#128577;</button
+          ><button
+            class="pin btn btn-primary btn-sm"
+            data-clicked="false"
+          >
+            &#128204;
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script type="module" src="src/main.js"></script>
   </body>

@@ -85,3 +85,14 @@ export const removeAllChildren = (elementName) => {
 export const insertAfter = (newNode, existingNode) => {
   existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 }
+
+export const appendText = (targetElement, text) => {
+  const textNode = document.createTextNode(text);
+  targetElement.appendChild(textNode);
+}
+
+export const appendDate = (targetElement, date) => {
+  const dateObject = new Date(date);
+  const dateTextNode = document.createTextNode(dateObject.toString());
+  targetElement.appendChild(dateTextNode);
+}

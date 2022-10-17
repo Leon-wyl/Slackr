@@ -1,74 +1,128 @@
-
 /* base styles, feel free to edit */
-html, body {
-    /* margin: 0;
+html,
+body {
+  /* margin: 0;
     padding: 0; */
-    background-color: #fafafa;
-    height: 100%;
-    font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
+  background-color: #fafafa;
+  height: 100%;
+  font-family: -apple-system, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .page-auth {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .page-auth form {
-	max-width: 330px;
-	flex-basis: 330px;
+  max-width: 330px;
+  flex-basis: 330px;
 }
 
 #page-register {
-	display: none;
+  display: none;
 }
 
 .alert {
-	display: none;
+  display: none;
 }
 
 #navbar {
-	display: none;
+  display: none;
 }
 
 #sidebar-main-page {
-	display: none;
-	height: calc(100vh - 56px);
+  display: none;
+  height: calc(100vh - 56px);
 }
 
 #channel-list {
-	overflow: scroll;
+  overflow: scroll;
 }
 
-
 #channel-card {
-	display: none;
-	width: calc(100vw - 380px);
+  display: none;
+  width: calc(100vw - 380px);
 }
 
 main {
-	width: 100vw;
-	overflow: hidden;
+  width: 100vw;
+  overflow: hidden;
 }
 
 #channel-unjoined-card {
-	display: none;
-	width: calc(100vw - 380px);
+  display: none;
+  width: calc(100vw - 380px);
 }
 
 .navbar-brand:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 #sidebar-main-page {
-	width: 380px;
+  width: 380px;
 }
 
 #message-box {
-	height: 93%;
-	margin-bottom: 0.5rem;
+  height: 93%;
+  margin-bottom: 0.5rem;
 }
 
 #input-box {
-	height: 7%;
+  height: 7%;
+}
+
+.user-name-message, .edit-message, .delete-message {
+  font-size: 14px;
+}
+
+#all-messages {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	height: 77.5vh;
+}
+
+#all-messages {
+  overflow: scroll;
+}
+
+.user-name-message,
+.avatar-message,
+.edit-message,
+.delete-message,
+.smile-react,
+.normal-react,
+.cry-react {
+  margin-right: 1rem;
+	cursor: pointer;
+}
+
+.smile-react,
+.normal-react,
+.cry-react,
+.pin {
+	padding-top: 1px !important;
+	padding-bottom: 1px !important;
+}
+
+.user-name-message,
+.text-message,
+.time-message,
+.sent-at-title,
+.sent-at-message,
+.edited-at-title,
+.edited-at-message {
+  margin-bottom: 0;
+}
+
+.sent-at-title,
+.sent-at-message,
+.edited-at-title,
+.edited-at-message {
+	display: inline-block;
+	font-size: 12px;
+}
+
+#single-message {
+	display: none;
 }
