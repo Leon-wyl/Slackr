@@ -43,10 +43,7 @@ export const appendMessageToChatbox = (messages, start) => {
 		console.log(appendedNodeImgContainer)
 		appendedNodeImgContainer.style.display ="flex";
 	});
-	document.getElementById("message-box").scrollTop = 655;
-	console.log(document.getElementById("message-box").scrollTop, document.getElementById("message-box").scrollHeight)
-	// const newMsgNode = document.getElementById("single-message").cloneNode(true);
-	// console.log(newMsgNode.querySelector(".text-message-container"))
+	document.getElementById("all-messages").scrollTop = document.getElementById("all-messages").scrollHeight;
 }
 
 const clearMsgTemplate = () => {
