@@ -4,6 +4,7 @@ import { fileToDataUrl, hideAllPages, loadMainPage } from "./helpers.js";
 import { register, signin } from "./auth.js";
 import { removeAllChildren } from "./helpers.js";
 import { createChannel, getSingleChannelInfo, editChannel, leaveChannel, joinChannel } from "./channels.js";
+import { sendMessage, fillMsgToEditModal, editMessage, deleteMessage, setAttributeToDeleteModal } from "./message.js";
 
 console.log("Let's go!");
 
@@ -56,10 +57,37 @@ document.getElementById("leave-modal-button").addEventListener('click', () => {
   leaveChannel();
 });
 
+document.getElementById("send-button-message").addEventListener('click', () => {
+  sendMessage();
+})
+
 document.getElementById("join-btn-unjoined-card").addEventListener('click', () => {
   joinChannel();
 })
 
 document.getElementById("logo").addEventListener('click', () => {
   loadMainPage();
+})
+
+document.getElementById("all-messages").addEventListener('click', (event) => {
+  if (event.target.closest(".edit-message")) {
+    fillMsgToEditModal(event.target.dataset.id);
+  } else if (event.target.closest(".delete-message")) {
+    setAttributeToDeleteModal(event.target.dataset.id)
+  }
+})
+
+document.getElementById("message-edit-submit").addEventListener('click', () => {
+  editMessage();
+})
+
+document.getElementById("message-delete-submit").addEventListener('click', () => {
+  deleteMessage();
+})
+
+document.getElementById("all-messages").addEventListener("scroll", (e) => {
+  const requestFlag = document.getElementById("all-messages").dataset.requestflag;
+  if (e.target.scrollTop < 25 && requestFlag === "false") {
+    console.log("load");
+  }
 })

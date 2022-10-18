@@ -118,6 +118,7 @@ export const createChannelCard = (data, channelId) => {
     document.getElementById("channel").style.width = "calc(100vw - 240px)";
     document.getElementById("channel-card").style.width = "100%";
   }
+  // Get all messages
   fetchMessages(channelId, 0);
 };
 

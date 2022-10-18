@@ -65,10 +65,10 @@ main {
 
 #message-box {
   height: 93%;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 }
 
-#input-box {
+#input-container {
   height: 7%;
 }
 
@@ -125,4 +125,19 @@ main {
 
 #single-message {
 	display: none;
+}
+
+#text-input-message,
+#image-input-message,
+#send-button-message {
+	margin-right: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+#loading-container {
+	display: none;
+}
+
+#loading-message {
+	font-size: 14px;
 }

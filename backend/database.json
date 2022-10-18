@@ -274,6 +274,17 @@
       ],
       "messages": [
         {
+          "id": 46,
+          "message": "你好",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-18T15:02:40.167Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
           "id": 42,
           "message": "yeah, i do! i just didn't think that you did",
           "sender": 15272,
@@ -749,5 +760,5 @@
       "messages": []
     }
   },
-  "nextMessageId": 43
+  "nextMessageId": 47
 }

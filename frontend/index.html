@@ -238,6 +238,75 @@
       </div>
     </div>
 
+    <!-- edit message modal-->
+    <div
+      class="modal fade"
+      id="message-edit-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="message-edit-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="message-edit-label">Edit Message</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="text-message-edit"
+                placeholder="Enter Message Text"
+              />
+              <label for="text-message-edit">New Message</label>
+            </div>
+            <div class="form-floating mb-0 d-flex justify-content-center">
+              <button
+                id="image-input-message"
+                type="button"
+                class="btn btn-primary btn-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-image"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                  ></path>
+                  <path
+                    d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-center">
+            <button
+              id="message-edit-submit"
+              type="reset"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Leave Channel Modal -->
     <div
       class="modal fade"
@@ -277,6 +346,51 @@
               class="btn btn-danger"
             >
               Yes, I am leaving the channel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Message Delete Modal -->
+    <div
+      class="modal fade"
+      id="message-delete-modal"
+      tabindex="-1"
+      aria-labelledby="message-delete-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="message-delete-label">
+              Delete Message
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="modal-body" class="modal-body">
+            <p>Are you sure to delete this message?</p>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              No, I don't want to delete this message
+            </button>
+            <button
+              id="message-delete-submit"
+              data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-danger"
+            >
+              Yes, I am deleting this message
             </button>
           </div>
         </div>
@@ -496,13 +610,41 @@
             <div id="message-box" class="card w-99">
               <div id="all-messages" class="card-body"></div>
             </div>
-            <div id="input-box" class="card w-99 h-10">
-              <div class="card-body">
-                <p class="card-text">
-                  With supporting text below as a natural lead-in to additional
-                  content.
-                </p>
-              </div>
+            <div id="input-container" class="d-flex w-99 h-10">
+              <input
+                type="text"
+                class="form-control w-99 h-8"
+                id="text-input-message"
+                placeholder="Enter message"
+              />
+              <button
+                id="image-input-message"
+                type="button"
+                class="btn btn-primary btn-sm"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-image"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
+                  ></path>
+                  <path
+                    d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"
+                  ></path>
+                </svg>
+              </button>
+              <button
+                id="send-button-message"
+                type="button"
+                class="btn btn-primary btn-sm"
+              >
+                Send
+              </button>
             </div>
           </div>
         </div>
@@ -533,7 +675,8 @@
     <!-- Single Message Template-->
     <div id="single-message" class="my-4">
       <div
-        id="avatar-message-container" class="align-items-center"
+        id="avatar-message-container"
+        class="avatar-message-container align-items-center"
       >
         <img
           class="avatar-message d-inline-block"
@@ -548,12 +691,22 @@
         <div class="time-message text-secondary">
           <p id="sent-at-title" class="sent-at-title">Sent At:</p>
           <p id="sent-at-message" class="sent-at-message"></p>
-          <p id="edited-at-title" class="edited-at-title">&nbsp;&nbsp;Edited At:</p>
+          <p id="edited-at-title" class="edited-at-title">
+            &nbsp;&nbsp;Edited At:
+          </p>
           <p id="edited-at-message" class="edited-at-message"></p>
         </div>
         <div class="d-flex justfy-content-left options-message">
-          <a class="edit-message">Edit</a
-          ><a class="delete-message">Delete</a
+          <a
+            class="edit-message"
+            data-bs-toggle="modal"
+            data-bs-target="#message-edit-modal"
+            >Edit</a
+          ><a
+            class="delete-message"
+            data-bs-toggle="modal"
+            data-bs-target="#message-delete-modal"
+            >Delete</a
           ><button
             class="smile-react btn btn-primary btn-sm"
             data-clicked="false"
@@ -569,14 +722,16 @@
             data-clicked="false"
           >
             &#128577;</button
-          ><button
-            class="pin btn btn-primary btn-sm"
-            data-clicked="false"
-          >
+          ><button class="pin btn btn-primary btn-sm" data-clicked="false">
             &#128204;
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- Loading Message -->
+    <div id="loading-container">
+      <p id="loading-message" class="text-primary">Loading...</p>
     </div>
 
     <script type="module" src="src/main.js"></script>
