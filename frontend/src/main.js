@@ -5,6 +5,7 @@ import { register, signin } from "./auth.js";
 import { removeAllChildren } from "./helpers.js";
 import { createChannel, getSingleChannelInfo, editChannel, leaveChannel, joinChannel } from "./channels.js";
 import { sendMessage, fillMsgToEditModal, editMessage, deleteMessage, setAttributeToDeleteModal } from "./message.js";
+import { fetchMessages } from "./messagesApi.js";
 
 console.log("Let's go!");
 
@@ -85,9 +86,31 @@ document.getElementById("message-delete-submit").addEventListener('click', () =>
   deleteMessage();
 })
 
+// If scrolling to top, load more message
 document.getElementById("all-messages").addEventListener("scroll", (e) => {
   const requestFlag = document.getElementById("all-messages").dataset.requestflag;
   if (e.target.scrollTop < 25 && requestFlag === "false") {
-    console.log("load");
+    loadMessage();
   }
 })
+
+// Infinite scrolling
+const loadMessage = () => {
+  const loading = document.getElementById("loading-container").cloneNode(true);
+  loading.style.display = "flex";
+  const allMsgNode = document.getElementById("all-messages");
+  allMsgNode.setAttribute("data-requestflag", "true");
+  allMsgNode.insertBefore(loading, allMsgNode.firstChild);
+  setTimeout(() => {
+    allMsgNode.removeChild(loading);
+    allMsgNode.setAttribute("data-requestflag", "false");
+    if (allMsgNode.dataset.loadfinish === "true") {
+      allMsgNode.setAttribute("data-requestflag", "true");
+      return;
+    }
+    const nextPageNumber = Number(allMsgNode.dataset.number);
+    console.log(nextPageNumber);
+    const channelId = document.getElementById("channel").dataset.id;
+    fetchMessages(channelId, nextPageNumber);
+  }, 1000);
+}

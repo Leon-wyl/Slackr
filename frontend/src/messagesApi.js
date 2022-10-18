@@ -26,15 +26,8 @@ export const fetchMessages = (channelId, start) => {
           .catch((err) => {
             errorModalPop(err);
           });
-      } else if (res.status === 400 && start === 0) {
+      } else if (res.status === 400) {
         errorModalPop("Channel Doesn't Exist.");
-      } else if (res.status === 400 && start !== 0) {
-        document
-          .getElementById("all-messages")
-          .setAttribute("data-requestflag", "true");
-				document
-          .getElementById("all-messages")
-          .setAttribute("data-loadfinish", "true");
       } else if (res.status === 403) {
         errorModalPop(
           "You are not authorized to see the message. Please logout and login again."

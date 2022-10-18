@@ -4,24 +4,40 @@ import {
   errorModalPop,
   removeAllChildren,
 } from "./helpers.js";
-import { fetchDeleteMessage, fetchEditMessage, fetchSendMessage } from "./messagesApi.js";
+import {
+  fetchDeleteMessage,
+  fetchEditMessage,
+  fetchSendMessage,
+} from "./messagesApi.js";
 import { fetchSingleUserInfoForMessage } from "./user.js";
 
 export const appendMessageToChatbox = (messages, start) => {
-	const allMsgNode = document.getElementById("all-messages");
+  const allMsgNode = document.getElementById("all-messages");
   // If reloading message, remove all messages in chatbox and add the end marker back
   if (start === 0) {
     removeAllChildren("all-messages");
     const endOfMsgMarker = document
       .getElementById("end-of-all-messages")
       .cloneNode(true);
-			allMsgNode.appendChild(endOfMsgMarker);
+    allMsgNode.appendChild(endOfMsgMarker);
+		allMsgNode.setAttribute("data-lastscrollheight", "");
   }
-	allMsgNode.setAttribute("data-page", start);
-	allMsgNode.setAttribute("data-requestflag", "false");
-	allMsgNode.setAttribute("data-loadfinish", "false");
+  allMsgNode.setAttribute("data-number", start);
+  allMsgNode.setAttribute("data-requestflag", "false");
+  allMsgNode.setAttribute("data-loadfinish", "false");
+  if (messages.length === 0) {
+    document
+      .getElementById("all-messages")
+      .setAttribute("data-requestflag", "true");
+    document
+      .getElementById("all-messages")
+      .setAttribute("data-loadfinish", "true");
+  }
   messages.forEach((message) => {
     clearMsgTemplate();
+    // Count the number of messages
+    const currNumOfMsg = Number(allMsgNode.dataset.number) + 1;
+    allMsgNode.setAttribute("data-number", currNumOfMsg);
     // Copy from the template
     const newMsgNode = document
       .getElementById("single-message")
@@ -77,8 +93,13 @@ export const appendMessageToChatbox = (messages, start) => {
     );
     appendedNodeImgContainer.style.display = "flex";
   });
-  document.getElementById("all-messages").scrollTop =
-    document.getElementById("all-messages").scrollHeight;
+  // Automatically scroll down to the end after loading all messages
+  allMsgNode.scrollTop = allMsgNode.dataset.lastscrollheight
+    ? allMsgNode.scrollHeight - allMsgNode.dataset.lastscrollheight
+    : allMsgNode.scrollHeight;
+	console.log(allMsgNode.dataset.lastscrollheight)
+	console.log(allMsgNode.scrollTop, allMsgNode.scrollHeight)
+  allMsgNode.setAttribute("data-lastscrollheight", allMsgNode.scrollHeight);
 };
 
 const clearMsgTemplate = () => {
@@ -91,7 +112,6 @@ const clearMsgTemplate = () => {
 export const sendMessage = () => {
   const msgInput = document.getElementById("text-input-message").value;
   const pattern = /^\s*$/;
-  console.log(msgInput.length, pattern.test(msgInput));
   if (msgInput.length === 0 || pattern.test(msgInput)) {
     errorModalPop("Sent message cannot be empty");
     return;
@@ -101,35 +121,36 @@ export const sendMessage = () => {
 };
 
 export const fillMsgToEditModal = (id) => {
-	const MsgNode = document.getElementById("message-" + id);
-	const textNode = MsgNode.querySelector(".text-message");
-	const textString = textNode.firstChild.nodeValue;
-	const modalInputNode = document.getElementById("text-message-edit");
-	modalInputNode.setAttribute("data-msgid", id);
-	modalInputNode.setAttribute("data-origin", textString);
-	removeAllChildren("text-message-edit");
-	modalInputNode.value = textString;
-}
+  const MsgNode = document.getElementById("message-" + id);
+  const textNode = MsgNode.querySelector(".text-message");
+  const textString = textNode.firstChild.nodeValue;
+  const modalInputNode = document.getElementById("text-message-edit");
+  modalInputNode.setAttribute("data-msgid", id);
+  modalInputNode.setAttribute("data-origin", textString);
+  removeAllChildren("text-message-edit");
+  modalInputNode.value = textString;
+};
 
 export const editMessage = () => {
-	const modalInputNode = document.getElementById("text-message-edit");
-	if (modalInputNode.value === modalInputNode.dataset.origin) {
-		errorModalPop("You haven't editted the message.");
-		return;
-	}
-	const edittedMsg = document.getElementById("text-message-edit").value;
-	const channelId = document.getElementById("channel").dataset.id;
-	const messageId = document.getElementById("text-message-edit").dataset.msgid;
-	fetchEditMessage(messageId,channelId,edittedMsg, "");
-}
+  const modalInputNode = document.getElementById("text-message-edit");
+  if (modalInputNode.value === modalInputNode.dataset.origin) {
+    errorModalPop("You haven't editted the message.");
+    return;
+  }
+  const edittedMsg = document.getElementById("text-message-edit").value;
+  const channelId = document.getElementById("channel").dataset.id;
+  const messageId = document.getElementById("text-message-edit").dataset.msgid;
+  fetchEditMessage(messageId, channelId, edittedMsg, "");
+};
 
 export const setAttributeToDeleteModal = (id) => {
-	const modal = document.getElementById("message-delete-modal");
-	modal.setAttribute("data-msgid", id);
-}
+  const modal = document.getElementById("message-delete-modal");
+  modal.setAttribute("data-msgid", id);
+};
 
 export const deleteMessage = () => {
-	const channelId = document.getElementById("channel").dataset.id;
-	const messageId = document.getElementById("message-delete-modal").dataset.msgid;
-	fetchDeleteMessage(channelId, messageId);
-}
+  const channelId = document.getElementById("channel").dataset.id;
+  const messageId = document.getElementById("message-delete-modal").dataset
+    .msgid;
+  fetchDeleteMessage(channelId, messageId);
+};

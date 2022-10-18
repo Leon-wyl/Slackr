@@ -275,12 +275,12 @@
       "messages": [
         {
           "id": 46,
-          "message": "你好",
+          "message": "你好 擦哦哦",
           "image": "",
           "sender": 19712,
           "sentAt": "2022-10-18T15:02:40.167Z",
-          "edited": false,
-          "editedAt": null,
+          "edited": true,
+          "editedAt": "2022-10-18T16:32:17.190Z",
           "pinned": false,
           "reacts": []
         },

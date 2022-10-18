@@ -49,7 +49,6 @@ export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
         res
           .json()
           .then((data) => {
-            console.log(data);
             appendText(userNameNode, data.name);
             if (data.image) {
               removeAllChildren(avatarNode);
