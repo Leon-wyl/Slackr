@@ -141,7 +141,7 @@ export const fetchAllUsers = (promiseArray) => {
 //     });
 // };
 
-export const fetchSingleUserDetail = (id, promiseArray) => {
+export const fetchAllUsersDetail = (id, promiseArray) => {
   const token = localStorage.getItem("token");
   promiseArray.push(
     fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {

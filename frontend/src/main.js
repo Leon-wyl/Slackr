@@ -177,6 +177,7 @@ document.getElementById("multi-user-select").addEventListener("input", () => {
   selectedOptionNames.length > 0
     ? (select.options[select.length - 1].selected = true)
     : (select.options[0].selected = true);
+  console.log(selectedOptionNode.dataset.id)
 });
 
 document.getElementById("invite-modal-button").addEventListener("click", () => {
