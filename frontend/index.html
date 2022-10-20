@@ -397,6 +397,42 @@
       </div>
     </div>
 
+    <!-- Invite User Modal -->
+    <div
+      class="modal fade"
+      id="invite-modal"
+      tabindex="-1"
+      aria-labelledby="invite-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="invite-modal-label">Invite</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="modal-body" class="modal-body d-flex justify-content-center">
+            <select id="multi-user-select"></select>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="invite-modal-button"
+              data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-primary"
+            >
+              Invite these users
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Sign In Page -->
     <div id="page-signin" class="page-auth text-center w-100 h-100">
       <form>
@@ -573,6 +609,22 @@
             <h5 id="channel-name" class="m-1"></h5>
             <div class="text-center">
               <div class="row gx-1">
+                <div class="col">
+                  <button
+                    type="button"
+                    id="invite-button"
+                    class="btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#invite-modal"
+                  >
+                    Invite Users
+                  </button>
+                </div>
+                <div class="col">
+                  <button type="button" class="btn btn-primary btn-sm">
+                    All Pinned
+                  </button>
+                </div>
                 <div class="col">
                   <button
                     type="button"

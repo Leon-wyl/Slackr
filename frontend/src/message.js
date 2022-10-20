@@ -9,7 +9,7 @@ import {
   fetchEditMessage,
   fetchSendMessage,
 } from "./messagesApi.js";
-import { fetchSingleUserInfoForMessage } from "./user.js";
+import { fetchSingleUserInfoForMessage } from "./usersApi.js";
 
 export const appendMessageToChatbox = (messages, start) => {
   const allMsgNode = document.getElementById("all-messages");

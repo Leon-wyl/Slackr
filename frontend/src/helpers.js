@@ -34,23 +34,27 @@ export function fileToDataUrl(file) {
 
 export const errorModalPop = (msg) => {
   removeAllChildren("notification-modal-title");
-	removeAllChildren("notification-modal-body");
+  removeAllChildren("notification-modal-body");
   const errorLable = document.createTextNode("Error");
   document.getElementById("notification-modal-title").appendChild(errorLable);
   const errorMsgText = document.createTextNode(msg);
   document.getElementById("notification-modal-body").appendChild(errorMsgText);
-  const modal = new bootstrap.Modal(document.getElementById("notification-modal"));
+  const modal = new bootstrap.Modal(
+    document.getElementById("notification-modal")
+  );
   modal.show();
 };
 
 export const successModalPop = (msg) => {
   removeAllChildren("notification-modal-title");
-	removeAllChildren("notification-modal-body");
+  removeAllChildren("notification-modal-body");
   const errorLable = document.createTextNode("Success");
   document.getElementById("notification-modal-title").appendChild(errorLable);
   const errorMsgText = document.createTextNode(msg);
   document.getElementById("notification-modal-body").appendChild(errorMsgText);
-  const modal = new bootstrap.Modal(document.getElementById("notification-modal"));
+  const modal = new bootstrap.Modal(
+    document.getElementById("notification-modal")
+  );
   modal.show();
 };
 
@@ -62,7 +66,7 @@ export const loadMainPage = () => {
   document.getElementById("channel").style.display = "none";
   document.getElementById("channel-unjoined-card").style.display = "none";
   if (window.innerWidth < 600) {
-  document.getElementById("sidebar-main-page").style.width = "100vw";
+    document.getElementById("sidebar-main-page").style.width = "100vw";
   } else if (window.innerWidth < 1000) {
     document.getElementById("sidebar-main-page").style.width = "240px";
   }
@@ -72,11 +76,11 @@ export const hideAllPages = () => {
   document.getElementById("page-signin").style.display = "none";
   document.getElementById("page-register").style.display = "none";
   document.getElementById("navbar").style.display = "none";
-	document.getElementById("sidebar-main-page").style.display = "none";
+  document.getElementById("sidebar-main-page").style.display = "none";
 };
 
 export const removeAllChildren = (elementName) => {
-	const element = document.getElementById(elementName);
+  const element = document.getElementById(elementName);
   while (element.hasChildNodes()) {
     element.removeChild(element.lastChild);
   }
@@ -84,15 +88,25 @@ export const removeAllChildren = (elementName) => {
 
 export const insertAfter = (newNode, existingNode) => {
   existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
-}
+};
 
 export const appendText = (targetElement, text) => {
   const textNode = document.createTextNode(text);
   targetElement.appendChild(textNode);
-}
+};
 
 export const appendDate = (targetElement, date) => {
   const dateObject = new Date(date);
   const dateTextNode = document.createTextNode(dateObject.toString());
   targetElement.appendChild(dateTextNode);
-}
+};
+
+export const sortOptions = (selectNodeName) => {
+  const selectNode = document.getElementById(selectNodeName);
+  console.log(selectNode)
+  const optionNodes = Array.from(selectNode.children);
+  console.log(optionNodes)
+  optionNodes.sort();
+  removeAllChildren(selectNodeName);
+  optionNodes.forEach((option) => selectNode.appendChild(option));
+};
