@@ -3,6 +3,7 @@ import {
   fetchAllUsers,
   fetchAllUsersDetail,
   fetchSingleUserForProfile,
+  fetchUpdateUser,
 } from "./usersApi.js";
 
 export const getAllUsers = () => {
@@ -68,26 +69,61 @@ export const loadProfile = (userId) => {
 };
 
 export const fillInfoToProfile = (data) => {
-	// Remove last profile info
+  // Remove last profile info
   removeAllChildren("name-profile");
   removeAllChildren("bio-profile");
   removeAllChildren("email-profile");
   removeAllChildren("avatar-container-profile");
-	// Get all info nodes
+  // Get all info nodes
   const nameNode = document.getElementById("name-profile");
   const bioNode = document.getElementById("bio-profile");
   const emailNode = document.getElementById("email-profile");
   const imageContainer = document.getElementById("avatar-container-profile");
   // fill info into info nodes
-	appendText(nameNode, data.name);
+  appendText(nameNode, data.name);
   if (data.bio) appendText(bioNode, data.bio);
   appendText(emailNode, data.email);
   const newImageNode = document.createElement("img");
   data.image // If no info image, set the default image
     ? newImageNode.setAttribute("src", data.image)
     : newImageNode.setAttribute("src", "./Assets/avatar.png");
-	newImageNode.setAttribute("class", "mt-3 mb-4");
-	newImageNode.setAttribute("width", "128");
-	newImageNode.setAttribute("height", "128");
+  newImageNode.setAttribute("class", "mt-3 mb-4");
+  newImageNode.setAttribute("width", "128");
+  newImageNode.setAttribute("height", "128");
+	newImageNode.setAttribute("id", "image-profile")
   imageContainer.appendChild(newImageNode);
+};
+
+export const changePasswordShowState = (switchNode) => {
+  const state = switchNode.dataset.state;
+  const newPasswordInputNode = document.getElementById("new-password");
+  if (state === "hidden") {
+    // If in hidden state, show the password, change the text of toggle
+    newPasswordInputNode.setAttribute("type", "text");
+    switchNode.setAttribute("data-state", "show");
+    removeAllChildren("password-show-state");
+    appendText(switchNode, "Hide Password");
+  } else {
+    // If in show state, hide the password, change the text of toggle
+    newPasswordInputNode.setAttribute("type", "password");
+    switchNode.setAttribute("data-state", "hidden");
+    removeAllChildren("password-show-state");
+    appendText(switchNode, "Show Password");
+  }
+};
+
+export const resetPassword = () => {
+  const name = document.getElementById("name-profile").firstChild.nodeValue;
+  const bio = document.getElementById("bio-profile").firstChild
+    ? document.getElementById("bio-profile").firstChild.nodeValue
+    : "";
+  const email = document.getElementById("email-profile").firstChild.nodeValue;
+	console.log(document.getElementById("avatar-container-profile"))
+  const image =
+    document.getElementById("image-profile").src.match("/Assets/avatar.png")
+      ? ""
+      : document.getElementById("image-profile").src;
+  const password = document.getElementById("new-password").value;
+	console.log(name, bio, email, image, password)
+  fetchUpdateUser(name, bio, email, image, password);
 };

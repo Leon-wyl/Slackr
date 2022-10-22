@@ -8,6 +8,10 @@ body {
   font-family: -apple-system, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
+main {
+	overflow: hidden;
+}
+
 .page-auth {
   display: flex;
   justify-content: center;
@@ -36,23 +40,21 @@ body {
   height: calc(100vh - 56px);
 }
 
-#channel-list {
-  overflow: scroll;
-}
-
-#channel-card {
-  display: none;
-  width: calc(100vw - 380px);
-}
-
 main {
   width: 100vw;
   overflow: hidden;
+	display: flex;
+}
+
+#channel-unjoined {
+	display: none;
+	width: 100vw;
+	height: calc(100vh - 56px);
 }
 
 #channel-unjoined-card {
-  display: none;
-  width: calc(100vw - 380px);
+  width: 99%;
+	height: 99%;
 }
 
 .navbar-brand:hover {
@@ -60,7 +62,22 @@ main {
 }
 
 #sidebar-main-page {
-  width: 380px;
+  width: 100vw;
+	display: none;
+}
+
+#channel, 
+#profile {
+	display: none;
+	width: 100vw;
+}
+
+#channel-list {
+  overflow: scroll;
+}
+
+#channel-card {
+  width: 100vw;
 }
 
 #message-box {
@@ -78,7 +95,7 @@ main {
 }
 
 #channel {
-	height: calc(100vh - 65px);
+	height: calc(100vh - 60px);
 }
 
 #channel-card {
@@ -102,7 +119,7 @@ main {
 .smile-react,
 .normal-react,
 .cry-react {
-  margin-right: 1rem;
+  margin-right: 0.75rem;
 	cursor: pointer;
 }
 
@@ -174,3 +191,5 @@ main {
 #message-input-container {
 	height: calc(100% - 78px);
 }
+
+

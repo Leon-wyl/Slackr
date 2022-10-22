@@ -22,7 +22,7 @@ import {
   setAttributeToDeleteModal,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
-import { getAllUsers, loadProfile } from "./users.js";
+import { changePasswordShowState, getAllUsers, loadProfile, resetPassword } from "./users.js";
 import { fetchInviteUsers } from "./usersApi.js";
 
 console.log("Let's go!");
@@ -113,6 +113,8 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
   } else if (event.target.closest(".user-name-message")) {
     const userId = event.target.dataset.senderid;
     loadProfile(userId);
+    document.getElementById("change-password-btn").style.display = "none";
+    document.getElementById("edit-profile-btn").style.display = "none";
   }
 });
 
@@ -185,4 +187,20 @@ document.getElementById("multi-user-select").addEventListener("input", () => {
 
 document.getElementById("invite-modal-button").addEventListener("click", () => {
   fetchInviteUsers(selectedOptionIds);
+})
+
+document.getElementById("profile-btn-sidebar").addEventListener('click', () => {
+  const userId = Number(localStorage.getItem("userId"));
+  loadProfile(userId);
+  document.getElementById("change-password-btn").style.display = "flex";
+  document.getElementById("edit-profile-btn").style.display = "flex";
+})
+
+document.getElementById("password-show-state").addEventListener('click', (event) => {
+  const node = event.target;
+  changePasswordShowState(node);
+})
+
+document.getElementById("change-password-button").addEventListener('click', () => {
+  resetPassword();
 })

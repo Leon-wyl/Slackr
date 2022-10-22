@@ -63,13 +63,6 @@ export const loadMainPage = () => {
   document.getElementById("navbar").style.display = "flex";
   fetchChannelsInfo();
   document.getElementById("sidebar-main-page").style.display = "flex";
-  document.getElementById("channel").style.display = "none";
-  document.getElementById("channel-unjoined-card").style.display = "none";
-  if (window.innerWidth < 600) {
-    document.getElementById("sidebar-main-page").style.width = "100vw";
-  } else if (window.innerWidth < 1000) {
-    document.getElementById("sidebar-main-page").style.width = "240px";
-  }
 };
 
 export const hideAllPages = () => {
@@ -78,13 +71,16 @@ export const hideAllPages = () => {
   document.getElementById("navbar").style.display = "none";
   document.getElementById("sidebar-main-page").style.display = "none";
   document.getElementById("channel").style.display = "none";
+  document.getElementById("channel-unjoined-card").style.display = "none";
   document.getElementById("profile").style.display = "none";
 };
 
 export const removeAllChildren = (elementName) => {
   const element = document.getElementById(elementName);
-  while (element.hasChildNodes()) {
-    element.removeChild(element.lastChild);
+  if (element) {
+    while (element.hasChildNodes()) {
+      element.removeChild(element.lastChild);
+    }
   }
 };
 

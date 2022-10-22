@@ -1,4 +1,4 @@
-import { errorModalPop, loadMainPage, removeAllChildren } from "./helpers.js";
+import { errorModalPop, hideAllPages, loadMainPage, removeAllChildren } from "./helpers.js";
 import {
   fetchEditChannel,
   fetchJoinChannel,
@@ -55,7 +55,7 @@ export const loadChannels = (channels, listId) => {
     const divElement = document.createElement("div");
     divElement.setAttribute(
       "class",
-      "w-100 align-items-center justify-content-between"
+      "d-flex w-100 align-items-center justify-content-center"
     );
     divElement.setAttribute("id", "name-channel-list");
     buttonElement.appendChild(divElement);
@@ -75,6 +75,9 @@ export const getSingleChannelInfo = (event) => {
 };
 
 export const createChannelCard = (data, channelId) => {
+  hideAllPages();
+  document.getElementById("navbar").style.display = "flex";
+  document.getElementById("channel").style.display = "flex";
   // Create text node for info
   const name1 = document.createTextNode(data.name);
   const name2 = document.createTextNode(data.name);
@@ -105,17 +108,6 @@ export const createChannelCard = (data, channelId) => {
     data.description;
   // set channel card to display
   document.getElementById("channel").setAttribute("data-id", channelId);
-  document.getElementById("channel").style.display = "flex";
-  document.getElementById("channel-unjoined").style.display = "none";
-  document.getElementById("channel-card").style.display = "flex";
-  if (window.innerWidth < 600) {
-    document.getElementById("sidebar-main-page").style.display = "none";
-    document.getElementById("channel").style.width = "99vw";
-    document.getElementById("channel-card").style.width = "99vw";
-  } else if (window.innerWidth < 1000) {
-    document.getElementById("channel").style.width = "calc(100vw - 240px)";
-    document.getElementById("channel-card").style.width = "100%";
-  }
   // Get all messages
   fetchMessages(channelId, 0);
 };
@@ -158,7 +150,10 @@ export const leaveChannel = () => {
 };
 
 export const showUnjoinedChannel = (channelId, channelName) => {
-  document.getElementById("channel").style.display = "none";
+  hideAllPages();
+  document.getElementById("navbar").style.display = "flex";
+  document.getElementById("channel-unjoined").style.display = "flex";
+  document.getElementById("channel-unjoined-card").style.display = "flex";
   removeAllChildren("channel-unjoined-name");
   const channelNameElement = document.getElementById("channel-unjoined-name");
   const nameTextNode = document.createTextNode(channelName);
@@ -166,20 +161,6 @@ export const showUnjoinedChannel = (channelId, channelName) => {
   document
     .getElementById("channel-unjoined")
     .setAttribute("data-id", channelId);
-  document.getElementById("channel-unjoined").style.display = "flex";
-  document.getElementById("channel-unjoined-card").style.display = "flex";
-  if (window.innerWidth < 600) {
-    document.getElementById("sidebar-main-page").style.display = "none";
-    document.getElementById("channel-unjoined").style.width = "100vw";
-    document.getElementById("channel-unjoined-card").style.width = "100vw";
-    document.getElementById("channel-unjoined").style.height =
-      "calc(100vh - 60px)";
-    document.getElementById("channel-unjoined-card").style.height = "100vh";
-  } else if (window.innerWidth < 1000) {
-    document.getElementById("channel-unjoined").style.width =
-      "calc(100vw - 240px)";
-    document.getElementById("channel-unjoined-card").style.width = "100%";
-  }
 };
 
 export const joinChannel = () => {

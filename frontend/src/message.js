@@ -112,7 +112,9 @@ const clearMsgTemplate = () => {
 };
 
 export const sendMessage = () => {
-  const msgInput = document.getElementById("text-input-message").value;
+	const inputNode = document.getElementById("text-input-message")
+  const msgInput = inputNode.value;
+	inputNode.value = "";
   const pattern = /^\s*$/;
   if (msgInput.length === 0 || pattern.test(msgInput)) {
     errorModalPop("Sent message cannot be empty");

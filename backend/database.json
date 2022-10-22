@@ -20,8 +20,8 @@
       "email": "b@123.com",
       "name": "b",
       "password": "123",
-      "bio": null,
-      "image": null,
+      "bio": "",
+      "image": "",
       "sessionActive": true
     },
     "49089": {
@@ -72,6 +72,22 @@
       "image": null,
       "sessionActive": true
     },
+    "87369": {
+      "email": "b@1.com",
+      "name": "Leon1",
+      "password": "123",
+      "bio": "",
+      "image": "",
+      "sessionActive": true
+    },
+    "89949": {
+      "email": "b@12.com",
+      "name": "Leon",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
+    },
     "92329": {
       "email": "e@123.com",
       "name": "12345",
@@ -89,7 +105,6 @@
       "description": "welcome to channel 10",
       "createdAt": "2022-10-12T18:06:23.521Z",
       "members": [
-        19712,
         "75659",
         "79387",
         "75659",
@@ -99,7 +114,9 @@
         "14452",
         "92329",
         "56563",
-        "49089"
+        "49089",
+        89949,
+        87369
       ],
       "messages": []
     },
@@ -336,9 +353,187 @@
         15272,
         56422,
         19712,
-        49089
+        49089,
+        89949,
+        87369
       ],
       "messages": [
+        {
+          "id": 62,
+          "message": "asdfasdfasdffffff",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T19:02:12.064Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 61,
+          "message": "asdfasdfasdfasdfasdfasdfasdfsdafasdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T19:02:06.582Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 60,
+          "message": "asdfasdfasdfasdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T19:02:02.301Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 59,
+          "message": "asdfasdfasd",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T19:01:58.915Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 58,
+          "message": "asdfasdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T19:01:54.973Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 57,
+          "message": "asdfasdfasdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T18:59:26.460Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 56,
+          "message": "asdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T18:59:21.622Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 55,
+          "message": "buasdfasd",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T18:58:19.628Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 54,
+          "message": "asdfasdf",
+          "image": "",
+          "sender": 19712,
+          "sentAt": "2022-10-22T18:57:59.501Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 53,
+          "message": "sdfd",
+          "image": "",
+          "sender": 87369,
+          "sentAt": "2022-10-22T18:57:10.784Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 52,
+          "message": "asdfasdfas",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:35:09.029Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 51,
+          "message": "asdfasdasdfasd",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:33:09.021Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 50,
+          "message": "asdfasdasdfasd",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:30:53.932Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 49,
+          "message": "asdfasdasdfasd",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:30:45.188Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 48,
+          "message": "asdfasdasdfasd",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:30:11.397Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
+        {
+          "id": 47,
+          "message": "asdfasd",
+          "image": "",
+          "sender": 89949,
+          "sentAt": "2022-10-22T18:30:01.459Z",
+          "edited": false,
+          "editedAt": null,
+          "pinned": false,
+          "reacts": []
+        },
         {
           "id": 46,
           "message": "你好 擦哦哦",
@@ -810,7 +1005,8 @@
       "description": "asdfasd",
       "createdAt": "2022-10-12T18:51:54.451Z",
       "members": [
-        19712
+        19712,
+        89949
       ],
       "messages": []
     },
@@ -842,5 +1038,5 @@
       "messages": []
     }
   },
-  "nextMessageId": 47
+  "nextMessageId": 63
 }

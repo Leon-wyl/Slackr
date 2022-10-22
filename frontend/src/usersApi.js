@@ -142,8 +142,6 @@ export const fetchAllUsers = (promiseArray) => {
   );
 };
 
-
-
 // const fetchSingleUserForName = (id) => {
 //   const token = localStorage.getItem("token");
 //   fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
@@ -240,4 +238,42 @@ export const fetchInviteUsers = (userIdArray) => {
       })
       successModalPop("You have invited these users!");
   })
+}
+
+export const fetchUpdateUser = (name, bio, email, image, password) => {
+  const token = localStorage.getItem("token");
+  console.log(name, bio, email, image, password)
+  fetch(`http://localhost:${BACKEND_PORT}/user`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+    body: JSON.stringify({
+      password: password,
+    })
+  })
+    .then((res) => {
+      if (res.ok) {
+        res
+          .json()
+          .then(() => {
+            successModalPop("Change password successfully");
+          })
+          .catch((err) => {
+            errorModalPop(err);
+          });
+      } else if (res.status === 400) {
+        errorModalPop("User doesn't Exist.");
+      } else if (res.status === 403) {
+        errorModalPop(
+          "You are not authorized to change user's password. Please logout and login again."
+        );
+      } else {
+        errorModalPop("Something wrong happened.");
+      }
+    })
+    .catch((err) => {
+      errorModalPop(err);
+    });
 }

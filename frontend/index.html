@@ -433,6 +433,51 @@
       </div>
     </div>
 
+    <!-- Change Password Modal -->
+    <div
+      class="modal fade"
+      id="change-password-modal"
+      tabindex="-1"
+      aria-labelledby="change-password-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="change-password-label">Change Password</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="modal-body" class="modal-body d-flex justify-content-evenly">
+            <div class="form-floating mb-3">
+              <input
+                type="password"
+                class="form-control"
+                id="new-password"
+                placeholder="password"
+              />
+              <label for="new-password">New Password</label>
+            </div>
+            <a class="text-primary text-decoration-underline ml-2" data-state="hidden" id="password-show-state">Show Password</a>
+          </div>
+          <div class="modal-footer">
+            <button
+              id="change-password-button"
+              data-bs-dismiss="modal"
+              type="button"
+              class="btn btn-primary"
+            >
+              Change Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Sign In Page -->
     <div id="page-signin" class="page-auth text-center w-100 h-100">
       <form>
@@ -557,7 +602,9 @@
             />
           </a>
           <ul class="text-end mb-0">
-            <button class="btn me-2" type="submit">Profile</button>
+            <button id="profile-btn-sidebar" class="btn me-2" type="submit">
+              Profile
+            </button>
             <button class="btn me-2" type="submit">Logout</button>
           </ul>
         </div>
@@ -565,7 +612,7 @@
     </div>
 
     <!-- Main Page -->
-    <main style="display: flex">
+    <main>
       <!-- Sidebar -->
       <div
         id="sidebar-main-page"
@@ -582,7 +629,7 @@
         </button>
         <div id="channel-list">
           <div
-            class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
+            class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center"
           >
             <span class="fs-5 fw-semibold">Public Channels</span>
           </div>
@@ -591,7 +638,7 @@
             class="list-group list-group-flush border-bottom scrollarea"
           ></div>
           <div
-            class="align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-between"
+            class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom justify-content-center"
           >
             <span class="fs-5 fw-semibold">Private Channels</span>
           </div>
@@ -621,7 +668,10 @@
                   </button>
                 </div>
                 <div class="col">
-                  <button type="button" class="channel-btn btn btn-primary btn-sm">
+                  <button
+                    type="button"
+                    class="channel-btn btn btn-primary btn-sm"
+                  >
                     Pinned
                   </button>
                 </div>
@@ -658,7 +708,10 @@
               </div>
             </div>
           </div>
-          <div id="message-input-container" class="card-body d-flex flex-column">
+          <div
+            id="message-input-container"
+            class="card-body d-flex flex-column"
+          >
             <div id="message-box" class="card w-99">
               <div id="all-messages" class="card-body"></div>
             </div>
@@ -692,7 +745,7 @@
               </button>
               <button
                 id="send-button-message"
-                type="button"
+                type="submit"
                 class="btn btn-primary btn-sm"
               >
                 Send
@@ -703,23 +756,49 @@
       </div>
 
       <!-- Profile page-->
-      <div id="profile" class="flex-column justify-content-center align-items-center">
+      <div
+        id="profile"
+        class="flex-column justify-content-center align-items-center "
+      >
         <div id="profile-card" class="card">
-          <div class="card-header">
-            Profile
-          </div>
+          <div class="card-header">Profile</div>
           <div class="card-body">
-            <div id="avatar-container-profile" class="d-flex justify-content-center">
-              <img class="mt-4 mb-5" src="./Assets/avatar.png" alt="avatar" width="128" height="128"/>
+            <div
+              id="avatar-container-profile"
+              class="d-flex justify-content-center"
+            >
+              <img
+                id="image-profile"
+                class="mt-4 mb-5"
+                src="./Assets/avatar.png"
+                alt="avatar"
+                width="128"
+                height="128"
+              />
+            </div>
+            <div class="d-flex justify-content-center">
+              <button
+                id="change-password-btn"
+                class="btn btn-primary btn-sm mb-2"
+                data-bs-toggle="modal"
+                data-bs-target="#change-password-modal"
+              >
+                Change Password
+              </button>
+            </div>
+            <div class="d-flex justify-content-center">
+              <button id="edit-profile-btn" class="btn btn-primary btn-sm mb-4">
+                Edit Profile
+              </button>
             </div>
             <h2 class="fs-6 fw-bold">Name</h2>
-            <p id="name-profile"></p>
+            <p id="name-profile">Leon</p>
             <hr />
             <h2 class="fs-6 fw-bold">Bio</h2>
-            <p id="bio-profile"></p>
+            <p id="bio-profile">I love you</p>
             <hr />
             <h2 class="fs-6 fw-bold">Email</h2>
-            <p id="email-profile"></p>
+            <p id="email-profile">123@bba.com</p>
           </div>
         </div>
       </div>
