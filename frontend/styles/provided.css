@@ -68,12 +68,21 @@ main {
   margin-bottom: 0.75rem;
 }
 
+
 #input-container {
   height: 7%;
 }
 
 .user-name-message, .edit-message, .delete-message {
   font-size: 14px;
+}
+
+#channel {
+	height: calc(100vh - 65px);
+}
+
+#channel-card {
+	height: 99%;
 }
 
 #all-messages {
@@ -140,4 +149,28 @@ main {
 
 #loading-message {
 	font-size: 14px;
+}
+
+#profile {
+	display: none;
+	height: calc(100vh - 56px);
+	width: calc(100vw);
+}
+
+#profile-card {
+	width: 600px;
+}
+
+@media (max-width: 600px) {
+	#profile-card {
+		width: 90vw;
+	}
+}
+
+.channel-btn {
+	margin: 2px 0;
+}
+
+#message-input-container {
+	height: calc(100% - 78px);
 }

@@ -110,10 +110,8 @@ export const createChannelCard = (data, channelId) => {
   document.getElementById("channel-card").style.display = "flex";
   if (window.innerWidth < 600) {
     document.getElementById("sidebar-main-page").style.display = "none";
-    document.getElementById("channel").style.width = "100vw";
-    document.getElementById("channel").style.height = "calc(100vh - 60px)";
-    document.getElementById("channel-card").style.width = "100vw";
-    document.getElementById("channel-card").style.height = "100%";
+    document.getElementById("channel").style.width = "99vw";
+    document.getElementById("channel-card").style.width = "99vw";
   } else if (window.innerWidth < 1000) {
     document.getElementById("channel").style.width = "calc(100vw - 240px)";
     document.getElementById("channel-card").style.width = "100%";

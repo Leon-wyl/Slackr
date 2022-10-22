@@ -77,6 +77,8 @@ export const hideAllPages = () => {
   document.getElementById("page-register").style.display = "none";
   document.getElementById("navbar").style.display = "none";
   document.getElementById("sidebar-main-page").style.display = "none";
+  document.getElementById("channel").style.display = "none";
+  document.getElementById("profile").style.display = "none";
 };
 
 export const removeAllChildren = (elementName) => {
@@ -99,14 +101,4 @@ export const appendDate = (targetElement, date) => {
   const dateObject = new Date(date);
   const dateTextNode = document.createTextNode(dateObject.toString());
   targetElement.appendChild(dateTextNode);
-};
-
-export const sortOptions = (selectNodeName) => {
-  const selectNode = document.getElementById(selectNodeName);
-  console.log(selectNode)
-  const optionNodes = Array.from(selectNode.children);
-  console.log(optionNodes)
-  optionNodes.sort();
-  removeAllChildren(selectNodeName);
-  optionNodes.forEach((option) => selectNode.appendChild(option));
 };

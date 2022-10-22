@@ -45,6 +45,11 @@ export const register = () => {
     return;
   }
 
+  if (!name) {
+    errorModalPop("Name cannot be empty.");
+    return;
+  }
+
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },

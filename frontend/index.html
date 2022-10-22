@@ -162,19 +162,19 @@
             ></button>
           </div>
           <div class="modal-body">
-            <h2 class="fs-6">Channel name</h2>
+            <h2 class="fs-6 fw-bold">Channel name</h2>
             <p id="channel-name-info"></p>
             <hr />
-            <h2 class="fs-6">Description</h2>
+            <h2 class="fs-6 fw-bold">Description</h2>
             <p id="channel-description-info"></p>
             <hr />
-            <h2 class="fs-6">Channel Status</h2>
+            <h2 class="fs-6 fw-bold">Channel Status</h2>
             <p id="channel-status-modal-info"></p>
             <hr />
-            <h2 class="fs-6">Channel Creation Time</h2>
+            <h2 class="fs-6 fw-bold">Channel Creation Time</h2>
             <p id="channel-creation-time-info"></p>
             <hr />
-            <h2 class="fs-6">Channel Creator</h2>
+            <h2 class="fs-6 fw-bold">Channel Creator</h2>
             <p id="channel-creator-info"></p>
           </div>
         </div>
@@ -613,22 +613,22 @@
                   <button
                     type="button"
                     id="invite-button"
-                    class="btn btn-primary btn-sm"
+                    class="channel-btn btn btn-primary btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#invite-modal"
                   >
-                    Invite Users
+                    Invite
                   </button>
                 </div>
                 <div class="col">
-                  <button type="button" class="btn btn-primary btn-sm">
-                    All Pinned
+                  <button type="button" class="channel-btn btn btn-primary btn-sm">
+                    Pinned
                   </button>
                 </div>
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-primary btn-sm"
+                    class="channel-btn btn btn-primary btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#channel-info-modal"
                   >
@@ -638,7 +638,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-primary btn-sm"
+                    class="channel-btn btn btn-primary btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#channel-settings-modal"
                   >
@@ -648,7 +648,7 @@
                 <div class="col">
                   <button
                     type="button"
-                    class="btn btn-danger btn-sm"
+                    class="channel-btn btn btn-danger btn-sm"
                     data-bs-toggle="modal"
                     data-bs-target="#leave-modal"
                   >
@@ -658,7 +658,7 @@
               </div>
             </div>
           </div>
-          <div class="card-body">
+          <div id="message-input-container" class="card-body d-flex flex-column">
             <div id="message-box" class="card w-99">
               <div id="all-messages" class="card-body"></div>
             </div>
@@ -702,9 +702,32 @@
         </div>
       </div>
 
+      <!-- Profile page-->
+      <div id="profile" class="flex-column justify-content-center align-items-center">
+        <div id="profile-card" class="card">
+          <div class="card-header">
+            Profile
+          </div>
+          <div class="card-body">
+            <div id="avatar-container-profile" class="d-flex justify-content-center">
+              <img class="mt-4 mb-5" src="./Assets/avatar.png" alt="avatar" width="128" height="128"/>
+            </div>
+            <h2 class="fs-6 fw-bold">Name</h2>
+            <p id="name-profile"></p>
+            <hr />
+            <h2 class="fs-6 fw-bold">Bio</h2>
+            <p id="bio-profile"></p>
+            <hr />
+            <h2 class="fs-6 fw-bold">Email</h2>
+            <p id="email-profile"></p>
+          </div>
+        </div>
+      </div>
+
       <!-- End of all message marker-->
       <div id="end-of-all-messages" data-id="-1"></div>
 
+      <!-- Unjoined channel card -->
       <div id="channel-unjoined">
         <div id="channel-unjoined-card" class="card m-1">
           <div class="d-flex card-header justify-content-between">

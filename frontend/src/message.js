@@ -34,6 +34,7 @@ export const appendMessageToChatbox = (messages, start) => {
       .setAttribute("data-loadfinish", "true");
   }
   messages.forEach((message) => {
+		console.log(message);
     clearMsgTemplate();
     // Count the number of messages
     const currNumOfMsg = Number(allMsgNode.dataset.number) + 1;
@@ -67,6 +68,7 @@ export const appendMessageToChatbox = (messages, start) => {
     const avatarContainerNode = newMsgNode.querySelector(".user-name-message");
     // remove id attributes
     userNameNode.setAttribute("id", "");
+		userNameNode.setAttribute("data-senderid", message.sender);
     textMsgNode.setAttribute("id", "");
     sentAtMsgNode.setAttribute("id", "");
     editedAtMsgNode.setAttribute("id", "");

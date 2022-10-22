@@ -5,6 +5,7 @@ import {
   removeAllChildren,
   successModalPop,
 } from "./helpers.js";
+import { fillInfoToProfile } from "./users.js";
 
 export const getSingleUserInfo = (id) => {
   const token = localStorage.getItem("token");
@@ -80,6 +81,40 @@ export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
     });
 };
 
+export const fetchSingleUserForProfile = (id) => {
+  const token = localStorage.getItem("token");
+  fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        res
+          .json()
+          .then((data) => {
+            fillInfoToProfile(data);
+          })
+          .catch((err) => {
+            errorModalPop(err);
+          });
+      } else if (res.status === 400) {
+        errorModalPop("User doesn't Exist.");
+      } else if (res.status === 403) {
+        errorModalPop(
+          "You are not authorized to see user's info. Please logout and login again."
+        );
+      } else {
+        errorModalPop("Something wrong happened.");
+      }
+    })
+    .catch((err) => {
+      errorModalPop(err);
+    });
+}
+
 export const fetchAllUsers = (promiseArray) => {
   const token = localStorage.getItem("token");
   promiseArray.push(
@@ -106,6 +141,8 @@ export const fetchAllUsers = (promiseArray) => {
       })
   );
 };
+
+
 
 // const fetchSingleUserForName = (id) => {
 //   const token = localStorage.getItem("token");

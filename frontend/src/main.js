@@ -22,7 +22,7 @@ import {
   setAttributeToDeleteModal,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
-import { getAllUsers } from "./users.js";
+import { getAllUsers, loadProfile } from "./users.js";
 import { fetchInviteUsers } from "./usersApi.js";
 
 console.log("Let's go!");
@@ -110,6 +110,9 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
     fillMsgToEditModal(event.target.dataset.id);
   } else if (event.target.closest(".delete-message")) {
     setAttributeToDeleteModal(event.target.dataset.id);
+  } else if (event.target.closest(".user-name-message")) {
+    const userId = event.target.dataset.senderid;
+    loadProfile(userId);
   }
 });
 

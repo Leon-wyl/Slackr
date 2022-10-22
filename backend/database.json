@@ -48,6 +48,14 @@
       "image": null,
       "sessionActive": true
     },
+    "65211": {
+      "email": "asdfas",
+      "name": "",
+      "password": "123",
+      "bio": null,
+      "image": null,
+      "sessionActive": true
+    },
     "75659": {
       "email": "c@123.com",
       "name": "123",
@@ -210,9 +218,7 @@
       "private": false,
       "description": "asdfa",
       "createdAt": "2022-10-12T17:24:58.682Z",
-      "members": [
-        19712
-      ],
+      "members": [],
       "messages": []
     },
     "558357": {
@@ -324,7 +330,7 @@
       "name": "public channel",
       "creator": 15272,
       "private": false,
-      "description": "",
+      "description": "hello",
       "createdAt": "2021-09-13T08:00:03.220Z",
       "members": [
         15272,

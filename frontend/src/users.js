@@ -1,14 +1,18 @@
-import { appendText, removeAllChildren } from "./helpers.js";
-import { fetchAllUsers, fetchAllUsersDetail } from "./usersApi.js";
+import { appendText, hideAllPages, removeAllChildren } from "./helpers.js";
+import {
+  fetchAllUsers,
+  fetchAllUsersDetail,
+  fetchSingleUserForProfile,
+} from "./usersApi.js";
 
 export const getAllUsers = () => {
   const userPromiseArrayInOne = [];
   const userIdArray = [];
-	// Get all user ids
+  // Get all user ids
   fetchAllUsers(userPromiseArrayInOne);
   Promise.all(userPromiseArrayInOne)
     .then((res) => {
-			// If success, use the ids to get all user's detail
+      // If success, use the ids to get all user's detail
       const userPromiseArray = [];
       res[0].users.forEach((user) => {
         userIdArray.push(user.id);
@@ -17,7 +21,7 @@ export const getAllUsers = () => {
       return Promise.all(userPromiseArray);
     })
     .then((data) => {
-			// If success, combine corresponding ids and names into object, except for use him/herself
+      // If success, combine corresponding ids and names into object, except for use him/herself
       const userIdNameArray = [];
       for (let i = 0; i < userIdArray.length; i++) {
         if (userIdArray[i] !== Number(localStorage.getItem("userId"))) {
@@ -35,11 +39,11 @@ export const getAllUsers = () => {
 const pushUserToSelect = (userIdNameArray) => {
   removeAllChildren("multi-user-select");
   const selectNode = document.getElementById("multi-user-select");
-	// Create a hidden option for user select, in order to do multiple select
+  // Create a hidden option for user select, in order to do multiple select
   const hideOption = document.createElement("option");
   hideOption.hidden = true;
   selectNode.appendChild(hideOption);
-	// loop through all ids/names, construction option elements to select element
+  // loop through all ids/names, construction option elements to select element
   for (let i = 0; i < userIdNameArray.length; i++) {
     const optionNode = document.createElement("option");
     appendText(optionNode, userIdNameArray[i].name);
@@ -54,4 +58,36 @@ const compareNames = (a, b) => {
   if (nameA < nameB) return -1;
   if (nameA > nameB) return 1;
   return 0;
+};
+
+export const loadProfile = (userId) => {
+  hideAllPages();
+  document.getElementById("navbar").style.display = "flex";
+  document.getElementById("profile").style.display = "flex";
+  fetchSingleUserForProfile(userId);
+};
+
+export const fillInfoToProfile = (data) => {
+	// Remove last profile info
+  removeAllChildren("name-profile");
+  removeAllChildren("bio-profile");
+  removeAllChildren("email-profile");
+  removeAllChildren("avatar-container-profile");
+	// Get all info nodes
+  const nameNode = document.getElementById("name-profile");
+  const bioNode = document.getElementById("bio-profile");
+  const emailNode = document.getElementById("email-profile");
+  const imageContainer = document.getElementById("avatar-container-profile");
+  // fill info into info nodes
+	appendText(nameNode, data.name);
+  if (data.bio) appendText(bioNode, data.bio);
+  appendText(emailNode, data.email);
+  const newImageNode = document.createElement("img");
+  data.image // If no info image, set the default image
+    ? newImageNode.setAttribute("src", data.image)
+    : newImageNode.setAttribute("src", "./Assets/avatar.png");
+	newImageNode.setAttribute("class", "mt-3 mb-4");
+	newImageNode.setAttribute("width", "128");
+	newImageNode.setAttribute("height", "128");
+  imageContainer.appendChild(newImageNode);
 };
