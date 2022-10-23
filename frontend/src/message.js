@@ -2,6 +2,7 @@ import {
   appendDate,
   appendText,
   errorModalPop,
+  fileToDataUrl,
   removeAllChildren,
 } from "./helpers.js";
 import {
@@ -65,7 +66,8 @@ export const appendMessageToChatbox = (messages, start) => {
     const textMsgNode = newMsgNode.querySelector(".text-message");
     const sentAtMsgNode = newMsgNode.querySelector(".sent-at-message");
     const editedAtMsgNode = newMsgNode.querySelector(".edited-at-message");
-    const avatarContainerNode = newMsgNode.querySelector(".user-name-message");
+    const avatarContainerNode = newMsgNode.querySelector(".avatar-message-container");
+		const imageContainerNode = newMsgNode.querySelector("#image-message-container");
     // remove id attributes
     userNameNode.setAttribute("id", "");
 		userNameNode.setAttribute("data-senderid", message.sender);
@@ -73,13 +75,23 @@ export const appendMessageToChatbox = (messages, start) => {
     sentAtMsgNode.setAttribute("id", "");
     editedAtMsgNode.setAttribute("id", "");
     avatarContainerNode.setAttribute("id", "");
-    // append text into the infomation nodes
+    // append text and/or into the infomation nodes
     fetchSingleUserInfoForMessage(
       message.sender,
       avatarContainerNode,
       userNameNode
     );
-    appendText(textMsgNode, message.message);
+		if (message.image) {
+			const imgNode = document.createElement("img");
+			imgNode.src = message.image;
+			imgNode.height = 72;
+			imgNode.width = 72;
+			imgNode.setAttribute("class", "image-message");
+			imgNode.setAttribute("data-bs-toggle", "modal");
+			imgNode.setAttribute("data-bs-target", "#image-modal");
+			imageContainerNode.appendChild(imgNode);
+		}
+		appendText(textMsgNode, message.message);
     appendDate(sentAtMsgNode, message.sentAt);
     if (message.editedAt !== null)
       appendDate(editedAtMsgNode, message.editedAt);
@@ -90,10 +102,6 @@ export const appendMessageToChatbox = (messages, start) => {
     // set the outest node and the img container to display flex
     const appendedNode = document.getElementById("message-" + message.id);
     appendedNode.style.display = "flex";
-    const appendedNodeImgContainer = document.getElementById(
-      "avatar-message-container-" + message.id
-    );
-    appendedNodeImgContainer.style.display = "flex";
   });
   // Automatically scroll down to the end after loading all messages
   allMsgNode.scrollTop = allMsgNode.dataset.lastscrollheight
@@ -158,3 +166,21 @@ export const deleteMessage = () => {
     .msgid;
   fetchDeleteMessage(channelId, messageId);
 };
+
+export const sendImage = (node) => {
+	const channelId = document.getElementById("channel").dataset.id;
+	const file = node.files[0];
+	fileToDataUrl(file).then((res) => {
+		fetchSendMessage(channelId,"", res);
+	}).catch(() => {
+		errorModalPop('invalid image uploaded')
+	})
+}
+
+export const loadBigImage = (node) => {
+	removeAllChildren("image-modal-body");
+	const modalBody = document.getElementById("image-modal-body");
+	node.width = 350;
+	node.height = 350;
+	modalBody.appendChild(node);
+}

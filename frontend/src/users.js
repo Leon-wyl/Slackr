@@ -1,5 +1,5 @@
 import { EMAIL_REGEX } from "./config.js";
-import { appendText, errorModalPop, hideAllPages, removeAllChildren } from "./helpers.js";
+import { appendText, errorModalPop, fileToDataUrl, hideAllPages, removeAllChildren } from "./helpers.js";
 import {
   fetchAllUsers,
   fetchAllUsersDetail,
@@ -84,6 +84,7 @@ export const fillInfoToProfile = (data) => {
   appendText(nameNode, data.name);
   if (data.bio) appendText(bioNode, data.bio);
   appendText(emailNode, data.email);
+	// Load image
   const newImageNode = document.createElement("img");
   data.image // If no info image, set the default image
     ? newImageNode.setAttribute("src", data.image)
@@ -141,10 +142,27 @@ export const editProfile = () => {
 	const newName = document.getElementById("name-profile-edit").value;
 	const newEmail = document.getElementById("email-profile-edit").value;
 	const newBio = document.getElementById("bio-profile-edit").value;
+	const oldEmail = document.getElementById("email-profile").firstChild.nodeValue;
+	const file = document.getElementById("image-input-profile").files[0];
+	// Check if new name and new email valid
 	if (!newName) errorModalPop('New name cannot be empty');
 	if (!newEmail.match(EMAIL_REGEX)) errorModalPop('Invalid email');
-	const options = {name: newName, email: newEmail};
-	// if (newBio) {
-		
-	// }
+	// Construct options
+	const options = {name: newName};
+	if (oldEmail !== newEmail) options.email = newEmail;
+	if (newBio) options.bio = newBio;
+	if (file) {
+		fileToDataUrl(file).then((res) => {
+			options.image = res;
+			fetchUpdateUser(options);
+			const userId = localStorage.getItem("userId")
+			loadProfile(userId);
+		}).catch(() => {
+			errorModalPop('invalid image uploaded')
+		})
+	} else {
+		fetchUpdateUser(options);
+		const userId = localStorage.getItem("userId")
+		loadProfile(userId);
+	}
 }

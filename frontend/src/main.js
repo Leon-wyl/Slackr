@@ -20,6 +20,8 @@ import {
   editMessage,
   deleteMessage,
   setAttributeToDeleteModal,
+  sendImage,
+  loadBigImage,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
 import { changePasswordShowState, editProfile, fillInfoToEditProfile, getAllUsers, loadProfile, resetPassword } from "./users.js";
@@ -115,6 +117,8 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
     loadProfile(userId);
     document.getElementById("change-password-btn").style.display = "none";
     document.getElementById("edit-profile-btn").style.display = "none";
+  } else if (event.target.closest(".image-message")) {
+    loadBigImage(event.target);
   }
 });
 
@@ -189,7 +193,7 @@ document.getElementById("invite-modal-button").addEventListener("click", () => {
   fetchInviteUsers(selectedOptionIds);
 })
 
-document.getElementById("profile-btn-sidebar").addEventListener('click', () => {
+document.getElementById("profile-btn-navbar").addEventListener('click', () => {
   const userId = Number(localStorage.getItem("userId"));
   loadProfile(userId);
   document.getElementById("change-password-btn").style.display = "flex";
@@ -212,3 +216,7 @@ document.getElementById("edit-profile-btn").addEventListener("click", () => {
 document.getElementById("profile-edit-submit").addEventListener('click', () => {
   editProfile();
 })
+
+document.getElementById("image-send-message").addEventListener("change", (event) => {
+  sendImage(event.target);
+});

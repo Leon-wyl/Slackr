@@ -57,9 +57,12 @@ export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
           .then((data) => {
             appendText(userNameNode, data.name);
             if (data.image) {
-              removeAllChildren(avatarNode);
+              avatarNode.querySelector("#default-image").remove();
               const imgNode = document.createElement("img");
               imgNode.setAttribute("src", data.image);
+              imgNode.setAttribute("width", "36");
+              imgNode.setAttribute("height", "36");
+              imgNode.setAttribute("class", "avatar-message")
               avatarNode.appendChild(imgNode);
             }
           })
@@ -95,6 +98,7 @@ export const fetchSingleUserForProfile = (id) => {
         res
           .json()
           .then((data) => {
+            console.log(data);
             fillInfoToProfile(data);
           })
           .catch((err) => {
@@ -242,6 +246,7 @@ export const fetchInviteUsers = (userIdArray) => {
 
 export const fetchUpdateUser = (options) => {
   const token = localStorage.getItem("token");
+  console.log(options)
   fetch(`http://localhost:${BACKEND_PORT}/user`, {
     method: "PUT",
     headers: {
@@ -255,16 +260,16 @@ export const fetchUpdateUser = (options) => {
         res
           .json()
           .then(() => {
-            successModalPop("Change password successfully");
+            successModalPop("User profile edit successfully");
           })
           .catch((err) => {
             errorModalPop(err);
           });
       } else if (res.status === 400) {
-        errorModalPop("User doesn't Exist.");
+        errorModalPop("Invalid Input.");
       } else if (res.status === 403) {
         errorModalPop(
-          "You are not authorized to change user's password. Please logout and login again."
+          "You are not authorized to change user's profile. Please logout and login again."
         );
       } else {
         errorModalPop("Something wrong happened.");

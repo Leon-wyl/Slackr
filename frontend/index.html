@@ -508,6 +508,14 @@
             ></button>
           </div>
           <div class="modal-body">
+            <div class="mb-3">
+              <label for="" class="form-label">Change Avatar</label>
+              <input
+                class="form-control form-control-sm"
+                id="image-input-profile"
+                type="file"
+              />
+            </div>
             <div class="form-floating mb-3">
               <input
                 type="text"
@@ -546,6 +554,31 @@
             >
               Submit
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div
+      class="modal fade"
+      id="image-modal"
+      tabindex="-1"
+      aria-labelledby="image-modal-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="invite-modal-label">Image</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="image-modal-body" class="modal-body d-flex justify-content-center">
           </div>
         </div>
       </div>
@@ -675,7 +708,7 @@
             />
           </a>
           <ul class="text-end mb-0">
-            <button id="profile-btn-sidebar" class="btn me-2" type="submit">
+            <button id="profile-btn-navbar" class="btn me-2" type="submit">
               Profile
             </button>
             <button class="btn me-2" type="submit">Logout</button>
@@ -788,6 +821,13 @@
             <div id="message-box" class="card w-99">
               <div id="all-messages" class="card-body"></div>
             </div>
+            <div id="image-input-message-container" class="mb-3">
+              <input
+                class="form-control form-control-sm"
+                id="image-send-message"
+                type="file"
+              />
+            </div>
             <div id="input-container" class="d-flex w-99 h-10">
               <input
                 type="text"
@@ -795,27 +835,6 @@
                 id="text-input-message"
                 placeholder="Enter message"
               />
-              <button
-                id="image-input-message"
-                type="button"
-                class="btn btn-primary btn-sm"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-image"
-                  viewBox="0 0 16 16"
-                >
-                  <path
-                    d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"
-                  ></path>
-                  <path
-                    d="M2.002 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-12zm12 1a1 1 0 0 1 1 1v6.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12V3a1 1 0 0 1 1-1h12z"
-                  ></path>
-                </svg>
-              </button>
               <button
                 id="send-button-message"
                 type="submit"
@@ -908,9 +927,10 @@
     <div id="single-message" class="my-4">
       <div
         id="avatar-message-container"
-        class="avatar-message-container align-items-center"
+        class="d-flex avatar-message-container align-items-center"
       >
         <img
+          id="default-image"
           class="avatar-message d-inline-block"
           src="./Assets/avatar.png"
           width="36"
@@ -920,6 +940,10 @@
       <div class="d-inline-block text-message-container">
         <p id="user-name-message" class="user-name-message text-primary"></p>
         <p id="text-message" class="text-message"></p>
+        <div
+          id="image-message-container"
+          class="d-flex justify-content-start"
+        ></div>
         <div class="time-message text-secondary">
           <p id="sent-at-title" class="sent-at-title">Sent At:</p>
           <p id="sent-at-message" class="sent-at-message"></p>
