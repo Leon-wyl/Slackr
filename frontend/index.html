@@ -444,7 +444,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="change-password-label">Change Password</h1>
+            <h1 class="modal-title fs-5" id="change-password-label">
+              Change Password
+            </h1>
             <button
               type="button"
               class="btn-close"
@@ -462,7 +464,12 @@
               />
               <label for="new-password">New Password</label>
             </div>
-            <a class="text-primary text-decoration-underline ml-2" data-state="hidden" id="password-show-state">Show Password</a>
+            <a
+              class="text-primary text-decoration-underline ml-2"
+              data-state="hidden"
+              id="password-show-state"
+              >Show Password</a
+            >
           </div>
           <div class="modal-footer">
             <button
@@ -472,6 +479,72 @@
               class="btn btn-primary"
             >
               Change Password
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit Profile modal-->
+    <div
+      class="modal fade"
+      id="profile-edit-modal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="profile-edit-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header border-bottom-0">
+            <h5 class="modal-title" id="channel-settings-label">
+              Edit Profile
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="name-profile-edit"
+                placeholder="Enter New Name"
+              />
+              <label for="email1">Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="bio-profile-edit"
+                placeholder="Edit Bio"
+              />
+              <label for="description">Bio</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="email-profile-edit"
+                placeholder="Edit Email"
+              />
+              <label for="description">Email</label>
+            </div>
+          </div>
+          <div class="modal-footer border-top-0 justify-content-center">
+            <button
+              id="profile-edit-submit"
+              type="reset"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              Submit
             </button>
           </div>
         </div>
@@ -758,7 +831,7 @@
       <!-- Profile page-->
       <div
         id="profile"
-        class="flex-column justify-content-center align-items-center "
+        class="flex-column justify-content-center align-items-center"
       >
         <div id="profile-card" class="card">
           <div class="card-header">Profile</div>
@@ -787,7 +860,12 @@
               </button>
             </div>
             <div class="d-flex justify-content-center">
-              <button id="edit-profile-btn" class="btn btn-primary btn-sm mb-4">
+              <button
+                id="edit-profile-btn"
+                class="btn btn-primary btn-sm mb-4"
+                data-bs-toggle="modal"
+                data-bs-target="#profile-edit-modal"
+              >
                 Edit Profile
               </button>
             </div>

@@ -22,7 +22,7 @@ import {
   setAttributeToDeleteModal,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
-import { changePasswordShowState, getAllUsers, loadProfile, resetPassword } from "./users.js";
+import { changePasswordShowState, editProfile, fillInfoToEditProfile, getAllUsers, loadProfile, resetPassword } from "./users.js";
 import { fetchInviteUsers } from "./usersApi.js";
 
 console.log("Let's go!");
@@ -203,4 +203,12 @@ document.getElementById("password-show-state").addEventListener('click', (event)
 
 document.getElementById("change-password-button").addEventListener('click', () => {
   resetPassword();
+})
+
+document.getElementById("edit-profile-btn").addEventListener("click", () => {
+  fillInfoToEditProfile();
+})
+
+document.getElementById("profile-edit-submit").addEventListener('click', () => {
+  editProfile();
 })

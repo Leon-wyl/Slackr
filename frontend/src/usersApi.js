@@ -240,18 +240,15 @@ export const fetchInviteUsers = (userIdArray) => {
   })
 }
 
-export const fetchUpdateUser = (name, bio, email, image, password) => {
+export const fetchUpdateUser = (options) => {
   const token = localStorage.getItem("token");
-  console.log(name, bio, email, image, password)
   fetch(`http://localhost:${BACKEND_PORT}/user`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify({
-      password: password,
-    })
+    body: JSON.stringify(options)
   })
     .then((res) => {
       if (res.ok) {

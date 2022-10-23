@@ -1,4 +1,5 @@
-import { appendText, hideAllPages, removeAllChildren } from "./helpers.js";
+import { EMAIL_REGEX } from "./config.js";
+import { appendText, errorModalPop, hideAllPages, removeAllChildren } from "./helpers.js";
 import {
   fetchAllUsers,
   fetchAllUsersDetail,
@@ -113,17 +114,37 @@ export const changePasswordShowState = (switchNode) => {
 };
 
 export const resetPassword = () => {
-  const name = document.getElementById("name-profile").firstChild.nodeValue;
-  const bio = document.getElementById("bio-profile").firstChild
-    ? document.getElementById("bio-profile").firstChild.nodeValue
-    : "";
-  const email = document.getElementById("email-profile").firstChild.nodeValue;
-	console.log(document.getElementById("avatar-container-profile"))
-  const image =
-    document.getElementById("image-profile").src.match("/Assets/avatar.png")
-      ? ""
-      : document.getElementById("image-profile").src;
+  // const name = document.getElementById("name-profile").firstChild.nodeValue;
+  // const bio = document.getElementById("bio-profile").firstChild
+  //   ? document.getElementById("bio-profile").firstChild.nodeValue
+  //   : "";
+  // const email = document.getElementById("email-profile").firstChild.nodeValue;
+	// console.log(document.getElementById("avatar-container-profile"))
+  // const image =
+  //   document.getElementById("image-profile").src.match("/Assets/avatar.png")
+  //     ? ""
+  //     : document.getElementById("image-profile").src;
   const password = document.getElementById("new-password").value;
-	console.log(name, bio, email, image, password)
-  fetchUpdateUser(name, bio, email, image, password);
+  fetchUpdateUser({password: password});
 };
+
+export const fillInfoToEditProfile = () => {
+	const nameText = document.getElementById("name-profile").firstChild.nodeValue;
+	const emailText = document.getElementById("email-profile").firstChild.nodeValue;
+	const bioText = document.getElementById("bio-profile").firstChild?.nodeValue;
+	document.getElementById("name-profile-edit").value = nameText;
+	document.getElementById("email-profile-edit").value = emailText;
+	if (bioText) document.getElementById("bio-profile-edit").value = bioText;
+}
+
+export const editProfile = () => {
+	const newName = document.getElementById("name-profile-edit").value;
+	const newEmail = document.getElementById("email-profile-edit").value;
+	const newBio = document.getElementById("bio-profile-edit").value;
+	if (!newName) errorModalPop('New name cannot be empty');
+	if (!newEmail.match(EMAIL_REGEX)) errorModalPop('Invalid email');
+	const options = {name: newName, email: newEmail};
+	// if (newBio) {
+		
+	// }
+}
