@@ -22,6 +22,7 @@ import {
   setAttributeToDeleteModal,
   sendImage,
   loadBigImage,
+  clickPin,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
 import { changePasswordShowState, editProfile, fillInfoToEditProfile, getAllUsers, loadProfile, resetPassword } from "./users.js";
@@ -53,13 +54,6 @@ document.getElementById("btn-to-signin").addEventListener("click", () => {
   signinPage.style.display = "flex";
   registerPage.style.display = "none";
 });
-
-// // Create channel modal behaviours
-// const createChannelModal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
-// document.getElementById("btn-create-channel").addEventListener('click', () => {
-// 	// const modal = new bootstrap.Modal(document.getElementById("create-channel-modal"));
-//   createChannelModal.show();
-// })
 
 document
   .getElementById("create-channel-submit")
@@ -119,6 +113,8 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
     document.getElementById("edit-profile-btn").style.display = "none";
   } else if (event.target.closest(".image-message")) {
     loadBigImage(event.target);
+  } else if (event.target.closest(".pin")) {
+    clickPin(event.target);
   }
 });
 

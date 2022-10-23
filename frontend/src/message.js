@@ -8,7 +8,9 @@ import {
 import {
   fetchDeleteMessage,
   fetchEditMessage,
+  fetchPin,
   fetchSendMessage,
+	fetchUnpin,
 } from "./messagesApi.js";
 import { fetchSingleUserInfoForMessage } from "./usersApi.js";
 
@@ -93,6 +95,7 @@ export const appendMessageToChatbox = (messages, start) => {
 		}
 		appendText(textMsgNode, message.message);
     appendDate(sentAtMsgNode, message.sentAt);
+		getButtonState(pinButton, message.pinned)
     if (message.editedAt !== null)
       appendDate(editedAtMsgNode, message.editedAt);
     // append the whole msg node to the chatbox
@@ -183,4 +186,24 @@ export const loadBigImage = (node) => {
 	node.width = 350;
 	node.height = 350;
 	modalBody.appendChild(node);
+}
+
+const getButtonState = (node, state) => {
+	if (state === true) {
+		node.style.backgroundColor = "#00008B";
+		node.setAttribute("data-clicked", "true");
+	} else {
+		node.setAttribute("data-clicked", "false");
+	}
+}
+
+export const clickPin = (pinNode) => {
+	const pinState = pinNode.dataset.clicked;
+	const channelId = document.getElementById("channel").dataset.id;
+	const msgId = pinNode.dataset.id;
+	if (pinState === "true") {
+		fetchUnpin(channelId, msgId);
+	} else {
+		fetchPin(channelId, msgId);
+	}
 }

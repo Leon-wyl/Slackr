@@ -113,13 +113,18 @@ main {
 }
 
 .user-name-message,
-.avatar-message,
+.avatar-message {
+  margin-right: 0.75rem;
+	cursor: pointer;
+}
+
 .edit-message,
 .delete-message,
 .smile-react,
 .normal-react,
-.cry-react {
-  margin-right: 0.75rem;
+.cry-react,
+.pin {
+	margin-right: 0.5rem;
 	cursor: pointer;
 }
 
@@ -129,6 +134,9 @@ main {
 .pin {
 	padding-top: 1px !important;
 	padding-bottom: 1px !important;
+	border-radius: 5px;
+	border: 0;
+	background-color: #0d6efd;
 }
 
 .user-name-message,
@@ -191,5 +199,4 @@ main {
 #message-input-container {
 	height: calc(100% - 78px);
 }
-
 

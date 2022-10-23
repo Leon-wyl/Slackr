@@ -1,5 +1,5 @@
 import { BACKEND_PORT } from "./config.js";
-import { errorModalPop } from "./helpers.js";
+import { errorModalPop, successModalPop } from "./helpers.js";
 import { appendMessageToChatbox } from "./message.js";
 
 const originUrl = `http://localhost:${BACKEND_PORT}`;
@@ -160,3 +160,77 @@ export const fetchDeleteMessage = (channelId, messageId) => {
       errorModalPop(err);
     });
 };
+
+export const fetchPin = (channelId, msgId) => {
+  const token = localStorage.getItem("token");
+  const url = new URL(originUrl + `/message/pin/${channelId}/${msgId}`);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  };
+  fetch(url, options)
+    .then((res) => {
+      if (res.ok) {
+        res
+          .json()
+          .then(() => {
+            successModalPop("successfully pin a message");
+						fetchMessages(channelId, 0);
+          })
+          .catch((err) => {
+            errorModalPop(err);
+          });
+      } else if (res.status === 400) {
+        errorModalPop("Channel or message Doesn't Exist.");
+      } else if (res.status === 403) {
+        errorModalPop(
+          "You are not authorized to pin this message. Please logout and login again."
+        );
+      } else {
+        errorModalPop("Something wrong happened.");
+      }
+    })
+    .catch((err) => {
+      errorModalPop(err);
+    });
+}
+
+export const fetchUnpin = (channelId, msgId) => {
+  const token = localStorage.getItem("token");
+  const url = new URL(originUrl + `/message/unpin/${channelId}/${msgId}`);
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + token,
+    },
+  };
+  fetch(url, options)
+    .then((res) => {
+      if (res.ok) {
+        res
+          .json()
+          .then(() => {
+            successModalPop("successfully unpin a message");
+						fetchMessages(channelId, 0);
+          })
+          .catch((err) => {
+            errorModalPop(err);
+          });
+      } else if (res.status === 400) {
+        errorModalPop("Channel or message Doesn't Exist.");
+      } else if (res.status === 403) {
+        errorModalPop(
+          "You are not authorized to pin this message. Please logout and login again."
+        );
+      } else {
+        errorModalPop("Something wrong happened.");
+      }
+    })
+    .catch((err) => {
+      errorModalPop(err);
+    });
+}
