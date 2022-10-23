@@ -207,3 +207,5 @@ export const clickPin = (pinNode) => {
 		fetchPin(channelId, msgId);
 	}
 }
+
+

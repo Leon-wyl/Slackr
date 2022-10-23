@@ -178,7 +178,7 @@ export const fetchPin = (channelId, msgId) => {
           .json()
           .then(() => {
             successModalPop("successfully pin a message");
-						fetchMessages(channelId, 0);
+            fetchMessages(channelId, 0);
           })
           .catch((err) => {
             errorModalPop(err);
@@ -196,7 +196,7 @@ export const fetchPin = (channelId, msgId) => {
     .catch((err) => {
       errorModalPop(err);
     });
-}
+};
 
 export const fetchUnpin = (channelId, msgId) => {
   const token = localStorage.getItem("token");
@@ -215,7 +215,7 @@ export const fetchUnpin = (channelId, msgId) => {
           .json()
           .then(() => {
             successModalPop("successfully unpin a message");
-						fetchMessages(channelId, 0);
+            fetchMessages(channelId, 0);
           })
           .catch((err) => {
             errorModalPop(err);
@@ -233,4 +233,49 @@ export const fetchUnpin = (channelId, msgId) => {
     .catch((err) => {
       errorModalPop(err);
     });
+};
+
+export const fetchAllPosts = () => {
+	const channelId = document.getElementById("channel").dataset.id;
+	const token = localStorage.getItem("token");
+	fetchAllPostsPromise(channelId, token).then((res) => {
+		console.log(res);
+	})
 }
+
+const fetchAllPostsPromise = (channelId, token) => {
+  return new Promise((resolve) => {
+    let page = 0;
+    const allPosts = [];
+
+    const url = new URL(originUrl + `/message/${channelId}`);
+    url.searchParams.append("start", page);
+
+    const fetchCurrentPage = () => {
+			console.log(page);
+      fetch(url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + token,
+        },
+      })
+        .then((res) => res.json())
+        .then((msgObject) => {
+					console.log(msgObject.messages.length)
+          if (msgObject.messages.length === 0) {
+            // base case - no more posts to fetch
+            resolve(allPosts);
+          } else {
+            page = page + msgObject.messages.length;
+            allPosts.push(...msgObject.messages);
+						url.searchParams.delete("start");
+						url.searchParams.append("start", page);
+            fetchCurrentPage();
+            // fetch next page
+          }
+        });
+    };
+    fetchCurrentPage();
+  });
+};
