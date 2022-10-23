@@ -23,8 +23,9 @@ import {
   sendImage,
   loadBigImage,
   clickPin,
+  getAllPinnedPosts,
 } from "./message.js";
-import { fetchAllPosts, fetchMessages } from "./messagesApi.js";
+import { fetchMessages } from "./messagesApi.js";
 import { changePasswordShowState, editProfile, fillInfoToEditProfile, getAllUsers, loadProfile, resetPassword } from "./users.js";
 import { fetchInviteUsers } from "./usersApi.js";
 
@@ -218,5 +219,5 @@ document.getElementById("image-send-message").addEventListener("change", (event)
 });
 
 document.getElementById("all-pinned-message-btn").addEventListener("click", () => {
-  fetchAllPosts();
+  getAllPinnedPosts();
 })

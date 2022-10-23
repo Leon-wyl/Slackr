@@ -366,7 +366,7 @@
           "sentAt": "2022-10-23T14:11:39.055Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {
@@ -377,7 +377,7 @@
           "sentAt": "2022-10-23T14:03:44.994Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {
@@ -388,7 +388,7 @@
           "sentAt": "2022-10-22T19:02:12.064Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {
@@ -399,7 +399,7 @@
           "sentAt": "2022-10-22T19:02:06.582Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {
@@ -410,7 +410,7 @@
           "sentAt": "2022-10-22T19:02:02.301Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {
@@ -426,12 +426,12 @@
         },
         {
           "id": 58,
-          "message": "asdfasdf",
+          "message": "kjkljkljk",
           "image": "",
           "sender": 19712,
           "sentAt": "2022-10-22T19:01:54.973Z",
-          "edited": false,
-          "editedAt": null,
+          "edited": true,
+          "editedAt": "2022-10-23T22:10:16.919Z",
           "pinned": false,
           "reacts": []
         },
@@ -454,7 +454,7 @@
           "sentAt": "2022-10-22T18:59:21.622Z",
           "edited": false,
           "editedAt": null,
-          "pinned": false,
+          "pinned": true,
           "reacts": []
         },
         {

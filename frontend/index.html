@@ -578,8 +578,39 @@
               aria-label="Close"
             ></button>
           </div>
-          <div id="image-modal-body" class="modal-body d-flex justify-content-center">
+          <div
+            id="image-modal-body"
+            class="modal-body d-flex justify-content-center"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pinned Messages Modal -->
+    <div
+      class="modal fade"
+      id="pinned-modal"
+      tabindex="-1"
+      aria-labelledby="pinned-label"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="invite-modal-label">
+              Pinned Messages
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
+          <div
+            id="pinned-modal-body"
+            class="modal-body d-flex flex-column justify-content-start"
+          ></div>
         </div>
       </div>
     </div>
@@ -778,6 +809,8 @@
                     id="all-pinned-message-btn"
                     type="button"
                     class="channel-btn btn btn-primary btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#pinned-modal"
                   >
                     Pinned
                   </button>
@@ -925,7 +958,7 @@
     </main>
 
     <!-- Single Message Template-->
-    <div id="single-message" class="my-4">
+    <div id="single-message" class="my-4 justify-content-start">
       <div
         id="avatar-message-container"
         class="d-flex avatar-message-container align-items-center"
@@ -946,12 +979,14 @@
           class="d-flex justify-content-start"
         ></div>
         <div class="time-message text-secondary">
-          <p id="sent-at-title" class="sent-at-title">Sent At:</p>
-          <p id="sent-at-message" class="sent-at-message"></p>
-          <p id="edited-at-title" class="edited-at-title">
-            &nbsp;&nbsp;Edited At:
-          </p>
-          <p id="edited-at-message" class="edited-at-message"></p>
+          <span>
+            <p id="sent-at-title" class="sent-at-title">Sent At:</p>
+            <p id="sent-at-message" class="sent-at-message mr-1"></p>
+          </span>
+          <span>
+            <p id="edited-at-title" class="edited-at-title">Edited At:</p>
+            <p id="edited-at-message" class="edited-at-message"></p>
+          </span>
         </div>
         <div class="d-flex justfy-content-left options-message">
           <a
@@ -964,24 +999,13 @@
             data-bs-toggle="modal"
             data-bs-target="#message-delete-modal"
             >Delete</a
-          ><button
-            class="smile-react btn-sm"
-            data-clicked="false"
-          >
+          ><button class="smile-react btn-sm" data-clicked="false">
             &#128512;</button
-          ><button
-            class="normal-react btn-sm"
-            data-clicked="false"
-          >
+          ><button class="normal-react btn-sm" data-clicked="false">
             &#128563;</button
-          ><button
-            class="cry-react btn-sm"
-            data-clicked="false"
-          >
+          ><button class="cry-react btn-sm" data-clicked="false">
             &#128577;</button
-          ><button class="pin btn-sm" data-clicked="false">
-            &#128204;
-          </button>
+          ><button class="pin btn-sm" data-clicked="false">&#128204;</button>
         </div>
       </div>
     </div>

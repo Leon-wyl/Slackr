@@ -21,7 +21,7 @@ export const fetchMessages = (channelId, start) => {
           .json()
           .then((data) => {
             console.log(data);
-            appendMessageToChatbox(data.messages, start);
+            appendMessageToChatbox(data.messages, start, false);
           })
           .catch((err) => {
             errorModalPop(err);
@@ -235,16 +235,9 @@ export const fetchUnpin = (channelId, msgId) => {
     });
 };
 
-export const fetchAllPosts = () => {
-	const channelId = document.getElementById("channel").dataset.id;
-	const token = localStorage.getItem("token");
-	fetchAllPostsPromise(channelId, token).then((res) => {
-		console.log(res);
-	})
-}
 
-const fetchAllPostsPromise = (channelId, token) => {
-  return new Promise((resolve) => {
+export const fetchAllPostsPromise = (channelId, token) => {
+  return new Promise((resolve, reject) => {
     let page = 0;
     const allPosts = [];
 
@@ -274,7 +267,9 @@ const fetchAllPostsPromise = (channelId, token) => {
             fetchCurrentPage();
             // fetch next page
           }
-        });
+        }).catch(() => {
+					reject();
+				});
     };
     fetchCurrentPage();
   });

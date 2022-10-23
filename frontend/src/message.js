@@ -6,6 +6,7 @@ import {
   removeAllChildren,
 } from "./helpers.js";
 import {
+	fetchAllPostsPromise,
   fetchDeleteMessage,
   fetchEditMessage,
   fetchPin,
@@ -14,7 +15,7 @@ import {
 } from "./messagesApi.js";
 import { fetchSingleUserInfoForMessage } from "./usersApi.js";
 
-export const appendMessageToChatbox = (messages, start) => {
+export const appendMessageToChatbox = (messages, start, isPinned) => {
   const allMsgNode = document.getElementById("all-messages");
   // If reloading message, remove all messages in chatbox and add the end marker back
   if (start === 0) {
@@ -49,6 +50,7 @@ export const appendMessageToChatbox = (messages, start) => {
     // set the message id to outside nodes, links and buttons of the msg
     newMsgNode.setAttribute("data-id", message.id);
     newMsgNode.setAttribute("id", "message-" + message.id);
+		newMsgNode.style.display = "flex";
     const container = newMsgNode.querySelector("#avatar-message-container");
     container.setAttribute("id", "avatar-message-container-" + message.id);
     const editLink = newMsgNode.querySelector(".edit-message");
@@ -99,12 +101,17 @@ export const appendMessageToChatbox = (messages, start) => {
     if (message.editedAt !== null)
       appendDate(editedAtMsgNode, message.editedAt);
     // append the whole msg node to the chatbox
-    const parentDiv = document.getElementById("all-messages");
-    const firstMsgElement = document.getElementById("all-messages").firstChild;
-    parentDiv.insertBefore(newMsgNode, firstMsgElement);
-    // set the outest node and the img container to display flex
-    const appendedNode = document.getElementById("message-" + message.id);
-    appendedNode.style.display = "flex";
+		if (isPinned) {
+			const parentDiv = document.getElementById("pinned-modal-body");
+			parentDiv.appendChild(newMsgNode);
+		} else {
+			const parentDiv = document.getElementById("all-messages");
+			const firstMsgElement = document.getElementById("all-messages").firstChild;
+			parentDiv.insertBefore(newMsgNode, firstMsgElement);
+			// set the outest node and the img container to display flex
+			const appendedNode = document.getElementById("message-" + message.id);
+			appendedNode.style.display = "flex";
+		}
   });
   // Automatically scroll down to the end after loading all messages
   allMsgNode.scrollTop = allMsgNode.dataset.lastscrollheight
@@ -208,4 +215,13 @@ export const clickPin = (pinNode) => {
 	}
 }
 
+export const getAllPinnedPosts = () => {
+	removeAllChildren("pinned-modal-body")
+	const channelId = document.getElementById("channel").dataset.id;
+	const token = localStorage.getItem("token");
+	fetchAllPostsPromise(channelId, token).then((res) => {
+		const pinnedMsgs = res.filter((message) => message.pinned);
+		appendMessageToChatbox(pinnedMsgs, 0, true);
+	})
+}
 
