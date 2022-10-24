@@ -7,3 +7,4 @@
 7. The length of password must be greater or equal to 6.
 8. Logout implemented (Logout feature is not mentioned in the spec)
 9. file message can edit to a text message, text message can edit to an image message
+10. every time when you create, join, leave a channel, react, pin, delete, edit an message, invite user, edit profile, when it succeed there will be a modal pop out telling you it succeed
