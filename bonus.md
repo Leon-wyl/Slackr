@@ -6,3 +6,4 @@
 6. Email of the user must be an valid email
 7. The length of password must be greater or equal to 6.
 8. Logout implemented (Logout feature is not mentioned in the spec)
+9. file message can edit to a text message, text message can edit to an image message
