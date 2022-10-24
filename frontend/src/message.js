@@ -80,6 +80,7 @@ export const appendMessageToChatbox = (messages, start, isPinned) => {
       imgNode.height = 72;
       imgNode.width = 72;
       imgNode.setAttribute("class", "image-message");
+			imgNode.setAttribute("alt", "avatar");
       imgNode.setAttribute("data-bs-toggle", "modal");
       imgNode.setAttribute("data-bs-target", "#image-modal");
       imageContainerNode.appendChild(imgNode);
