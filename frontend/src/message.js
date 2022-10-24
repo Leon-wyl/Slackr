@@ -178,15 +178,27 @@ export const fillMsgToEditModal = (id) => {
 // edit a particular sent message
 export const editMessage = () => {
   const modalInputNode = document.getElementById("text-message-edit");
+	const imgInputNode = document.getElementById("image-input-message-edit");
   // Check if it is the same as before
-  if (modalInputNode.value === modalInputNode.dataset.origin) {
+  if (modalInputNode.value === modalInputNode.dataset.origin && !imgInputNode.files[0]) {
     errorModalPop("You haven't editted the message.");
     return;
   }
   const edittedMsg = document.getElementById("text-message-edit").value;
   const channelId = document.getElementById("channel").dataset.id;
   const messageId = document.getElementById("text-message-edit").dataset.msgid;
-  fetchEditMessage(messageId, channelId, edittedMsg, "");
+	const file = imgInputNode.files[0];
+	if (file) {
+		fileToDataUrl(file)
+			.then((res) => {
+				fetchEditMessage(messageId, channelId, "", res);
+			})
+			.catch(() => {
+				errorModalPop("invalid image uploaded");
+			});
+	} else {
+  	fetchEditMessage(messageId, channelId, edittedMsg, "");
+	}
 };
 
 // set message id to the delete modal
