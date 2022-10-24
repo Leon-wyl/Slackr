@@ -7,40 +7,7 @@ import {
 } from "./helpers.js";
 import { fillInfoToProfile } from "./users.js";
 
-export const getSingleUserInfo = (id) => {
-  const token = localStorage.getItem("token");
-  fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + token,
-    },
-  })
-    .then((res) => {
-      if (res.ok) {
-        res
-          .json()
-          .then((data) => {
-            console.log(data.channels);
-            const publicChannels = data.channels.filter(
-              (channel) => !channel.private
-            );
-            const privateChannels = data.channels.filter(
-              (channel) => channel.private
-            );
-            loadChannels(publicChannels, "public-channels-list");
-            loadChannels(privateChannels, "private-channels-list");
-          })
-          .catch((err) => {
-            errorModalPop(err);
-          });
-      }
-    })
-    .catch((err) => {
-      errorModalPop(err);
-    });
-};
-
+// api for fetching user info into messages
 export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
   const token = localStorage.getItem("token");
   fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
@@ -62,7 +29,7 @@ export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
               imgNode.setAttribute("src", data.image);
               imgNode.setAttribute("width", "36");
               imgNode.setAttribute("height", "36");
-              imgNode.setAttribute("class", "avatar-message")
+              imgNode.setAttribute("class", "avatar-message");
               avatarNode.appendChild(imgNode);
             }
           })
@@ -84,6 +51,7 @@ export const fetchSingleUserInfoForMessage = (id, avatarNode, userNameNode) => {
     });
 };
 
+// api for fetching user info for profile
 export const fetchSingleUserForProfile = (id) => {
   const token = localStorage.getItem("token");
   fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
@@ -117,8 +85,9 @@ export const fetchSingleUserForProfile = (id) => {
     .catch((err) => {
       errorModalPop(err);
     });
-}
+};
 
+// api for fetching an list of all users' id, using a promise array
 export const fetchAllUsers = (promiseArray) => {
   const token = localStorage.getItem("token");
   promiseArray.push(
@@ -146,40 +115,7 @@ export const fetchAllUsers = (promiseArray) => {
   );
 };
 
-// const fetchSingleUserForName = (id) => {
-//   const token = localStorage.getItem("token");
-//   fetch(`http://localhost:${BACKEND_PORT}/user/${id}`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: "Bearer " + token,
-//     },
-//   })
-//     .then((res) => {
-//       if (res.ok) {
-//         res
-//           .json()
-//           .then((data) => {
-//             pushUserToSelect(data.name, data.id);
-//           })
-//           .catch((err) => {
-//             errorModalPop(err);
-//           });
-//       } else if (res.status === 400) {
-//         errorModalPop("Channel creator Doesn't Exist.");
-//       } else if (res.status === 403) {
-//         errorModalPop(
-//           "You are not authorized to see the channel creator. Please logout and login again."
-//         );
-//       } else {
-//         errorModalPop("Something wrong happened.");
-//       }
-//     })
-//     .catch((err) => {
-//       errorModalPop(err);
-//     });
-// };
-
+// api for fetching all users' name, using a promise array
 export const fetchAllUsersDetail = (id, promiseArray) => {
   const token = localStorage.getItem("token");
   promiseArray.push(
@@ -209,6 +145,7 @@ export const fetchAllUsersDetail = (id, promiseArray) => {
   );
 };
 
+// api for inviting user
 export const fetchInviteUsers = (userIdArray) => {
   const token = localStorage.getItem("token");
   const channelId = document.getElementById("channel").dataset.id;
@@ -222,13 +159,15 @@ export const fetchInviteUsers = (userIdArray) => {
       },
       body: JSON.stringify({
         userId,
-      })
+      }),
     })
       .then((res) => {
         if (res.ok) {
           //
         } else if (res.status === 400) {
-          errorModalPop(`This Id has already been in the channel or id Doesn't Exist: ${userId}.`);
+          errorModalPop(
+            `This Id has already been in the channel or id Doesn't Exist: ${userId}.`
+          );
         } else if (res.status === 403) {
           errorModalPop(
             `You are not authorized to invite this id: ${userId}. Please logout and login again.`
@@ -239,21 +178,22 @@ export const fetchInviteUsers = (userIdArray) => {
       })
       .catch((err) => {
         errorModalPop(err);
-      })
-      successModalPop("You have invited these users!");
-  })
-}
+      });
+    successModalPop("You have invited these users!");
+  });
+};
 
+//api for updating user's info
 export const fetchUpdateUser = (options) => {
   const token = localStorage.getItem("token");
-  console.log(options)
+  console.log(options);
   fetch(`http://localhost:${BACKEND_PORT}/user`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: "Bearer " + token,
     },
-    body: JSON.stringify(options)
+    body: JSON.stringify(options),
   })
     .then((res) => {
       if (res.ok) {
@@ -278,4 +218,4 @@ export const fetchUpdateUser = (options) => {
     .catch((err) => {
       errorModalPop(err);
     });
-}
+};

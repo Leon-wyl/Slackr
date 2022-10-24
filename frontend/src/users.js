@@ -1,5 +1,11 @@
 import { EMAIL_REGEX } from "./config.js";
-import { appendText, errorModalPop, fileToDataUrl, hideAllPages, removeAllChildren } from "./helpers.js";
+import {
+  appendText,
+  errorModalPop,
+  fileToDataUrl,
+  hideAllPages,
+  removeAllChildren,
+} from "./helpers.js";
 import {
   fetchAllUsers,
   fetchAllUsersDetail,
@@ -7,6 +13,7 @@ import {
   fetchUpdateUser,
 } from "./usersApi.js";
 
+// get names of all users through nested promise for invite select
 export const getAllUsers = () => {
   const userPromiseArrayInOne = [];
   const userIdArray = [];
@@ -38,6 +45,7 @@ export const getAllUsers = () => {
     });
 };
 
+// push the fetched user names to invite select
 const pushUserToSelect = (userIdNameArray) => {
   removeAllChildren("multi-user-select");
   const selectNode = document.getElementById("multi-user-select");
@@ -54,6 +62,7 @@ const pushUserToSelect = (userIdNameArray) => {
   }
 };
 
+// compare function for sorting
 const compareNames = (a, b) => {
   const nameA = a.name.toLowerCase();
   const nameB = b.name.toLowerCase();
@@ -62,6 +71,7 @@ const compareNames = (a, b) => {
   return 0;
 };
 
+// load profile page
 export const loadProfile = (userId) => {
   hideAllPages();
   document.getElementById("navbar").style.display = "flex";
@@ -84,7 +94,7 @@ export const fillInfoToProfile = (data) => {
   appendText(nameNode, data.name);
   if (data.bio) appendText(bioNode, data.bio);
   appendText(emailNode, data.email);
-	// Load image
+  // Load image
   const newImageNode = document.createElement("img");
   data.image // If no info image, set the default image
     ? newImageNode.setAttribute("src", data.image)
@@ -92,7 +102,7 @@ export const fillInfoToProfile = (data) => {
   newImageNode.setAttribute("class", "mt-3 mb-4");
   newImageNode.setAttribute("width", "128");
   newImageNode.setAttribute("height", "128");
-	newImageNode.setAttribute("id", "image-profile")
+  newImageNode.setAttribute("id", "image-profile");
   imageContainer.appendChild(newImageNode);
 };
 
@@ -115,54 +125,58 @@ export const changePasswordShowState = (switchNode) => {
 };
 
 export const resetPassword = () => {
-  // const name = document.getElementById("name-profile").firstChild.nodeValue;
-  // const bio = document.getElementById("bio-profile").firstChild
-  //   ? document.getElementById("bio-profile").firstChild.nodeValue
-  //   : "";
-  // const email = document.getElementById("email-profile").firstChild.nodeValue;
-	// console.log(document.getElementById("avatar-container-profile"))
-  // const image =
-  //   document.getElementById("image-profile").src.match("/Assets/avatar.png")
-  //     ? ""
-  //     : document.getElementById("image-profile").src;
   const password = document.getElementById("new-password").value;
-  fetchUpdateUser({password: password});
+  if (password.length < 6) {
+    errorModalPop("Length of password must be greater than six.");
+    return;
+  }
+  fetchUpdateUser({ password: password });
 };
 
 export const fillInfoToEditProfile = () => {
-	const nameText = document.getElementById("name-profile").firstChild.nodeValue;
-	const emailText = document.getElementById("email-profile").firstChild.nodeValue;
-	const bioText = document.getElementById("bio-profile").firstChild?.nodeValue;
-	document.getElementById("name-profile-edit").value = nameText;
-	document.getElementById("email-profile-edit").value = emailText;
-	if (bioText) document.getElementById("bio-profile-edit").value = bioText;
-}
+  const nameText = document.getElementById("name-profile").firstChild.nodeValue;
+  const emailText =
+    document.getElementById("email-profile").firstChild.nodeValue;
+  const bioText = document.getElementById("bio-profile").firstChild?.nodeValue;
+  document.getElementById("name-profile-edit").value = nameText;
+  document.getElementById("email-profile-edit").value = emailText;
+  if (bioText) document.getElementById("bio-profile-edit").value = bioText;
+};
 
 export const editProfile = () => {
-	const newName = document.getElementById("name-profile-edit").value;
-	const newEmail = document.getElementById("email-profile-edit").value;
-	const newBio = document.getElementById("bio-profile-edit").value;
-	const oldEmail = document.getElementById("email-profile").firstChild.nodeValue;
-	const file = document.getElementById("image-input-profile").files[0];
-	// Check if new name and new email valid
-	if (!newName) errorModalPop('New name cannot be empty');
-	if (!newEmail.match(EMAIL_REGEX)) errorModalPop('Invalid email');
-	// Construct options
-	const options = {name: newName};
-	if (oldEmail !== newEmail) options.email = newEmail;
-	if (newBio) options.bio = newBio;
-	if (file) {
-		fileToDataUrl(file).then((res) => {
-			options.image = res;
-			fetchUpdateUser(options);
-			const userId = localStorage.getItem("userId")
-			loadProfile(userId);
-		}).catch(() => {
-			errorModalPop('invalid image uploaded')
-		})
-	} else {
-		fetchUpdateUser(options);
-		const userId = localStorage.getItem("userId")
-		loadProfile(userId);
-	}
-}
+  const newName = document.getElementById("name-profile-edit").value;
+  const newEmail = document.getElementById("email-profile-edit").value;
+  const newBio = document.getElementById("bio-profile-edit").value;
+  const oldEmail =
+    document.getElementById("email-profile").firstChild.nodeValue;
+  const file = document.getElementById("image-input-profile").files[0];
+  // Check if new name and new email valid
+  if (!newName) {
+    errorModalPop("New name cannot be empty");
+    return;
+  }
+  if (!newEmail.match(EMAIL_REGEX)) {
+    errorModalPop("Invalid email");
+    return;
+  }
+  // Construct options
+  const options = { name: newName };
+  if (oldEmail !== newEmail) options.email = newEmail;
+  if (newBio) options.bio = newBio;
+  if (file) {
+    fileToDataUrl(file)
+      .then((res) => {
+        options.image = res;
+        fetchUpdateUser(options);
+        const userId = localStorage.getItem("userId");
+        loadProfile(userId);
+      })
+      .catch(() => {
+        errorModalPop("invalid image uploaded");
+      });
+  } else {
+    fetchUpdateUser(options);
+    const userId = localStorage.getItem("userId");
+    loadProfile(userId);
+  }
+};

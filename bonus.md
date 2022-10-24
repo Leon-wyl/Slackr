@@ -1,6 +1,8 @@
-1. channels bar is scrollable
-2. register page can route to the sign in page
-3. in channel settings, the original name and description are loaded
-4. in Edit Profile, the original profile info is loaded
+1. Channels bar is scrollable
+2. Register page can route to the sign in page
+3. In channel settings, the original name and description are loaded
+4. In Edit Profile, the original profile info is loaded
 5. Name of the user cannot be empty string
-6. 
+6. Email of the user must be an valid email
+7. The length of password must be greater or equal to 6.
+8. Logout implemented (Logout feature is not mentioned in the spec)

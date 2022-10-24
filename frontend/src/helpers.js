@@ -32,32 +32,41 @@ export function fileToDataUrl(file) {
   return dataUrlPromise;
 }
 
+// pop the error modal
 export const errorModalPop = (msg) => {
+  // remove old error messages
   removeAllChildren("notification-modal-title");
   removeAllChildren("notification-modal-body");
+  // load new error messages
   const errorLable = document.createTextNode("Error");
   document.getElementById("notification-modal-title").appendChild(errorLable);
   const errorMsgText = document.createTextNode(msg);
   document.getElementById("notification-modal-body").appendChild(errorMsgText);
+  // pop the modal
   const modal = new bootstrap.Modal(
     document.getElementById("notification-modal")
   );
   modal.show();
 };
 
+// pop the success modal
 export const successModalPop = (msg) => {
+  // remove old success messages
   removeAllChildren("notification-modal-title");
   removeAllChildren("notification-modal-body");
+  // load new error messages
   const errorLable = document.createTextNode("Success");
   document.getElementById("notification-modal-title").appendChild(errorLable);
   const errorMsgText = document.createTextNode(msg);
   document.getElementById("notification-modal-body").appendChild(errorMsgText);
+  //pop the modal
   const modal = new bootstrap.Modal(
     document.getElementById("notification-modal")
   );
   modal.show();
 };
 
+// load the main page with channel lists
 export const loadMainPage = () => {
   hideAllPages();
   document.getElementById("navbar").style.display = "flex";
@@ -75,6 +84,7 @@ export const hideAllPages = () => {
   document.getElementById("profile").style.display = "none";
 };
 
+// given an node name, remove all children in that node
 export const removeAllChildren = (elementName) => {
   const element = document.getElementById(elementName);
   if (element) {
@@ -84,15 +94,18 @@ export const removeAllChildren = (elementName) => {
   }
 };
 
+// Insert an element after a node
 export const insertAfter = (newNode, existingNode) => {
   existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
 };
 
+// add text into an element
 export const appendText = (targetElement, text) => {
   const textNode = document.createTextNode(text);
   targetElement.appendChild(textNode);
 };
 
+// add date into an element
 export const appendDate = (targetElement, date) => {
   const dateObject = new Date(date);
   const dateTextNode = document.createTextNode(dateObject.toString());

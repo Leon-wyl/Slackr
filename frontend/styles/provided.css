@@ -9,7 +9,7 @@ body {
 }
 
 main {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .page-auth {
@@ -43,18 +43,18 @@ main {
 main {
   width: 100vw;
   overflow: hidden;
-	display: flex;
+  display: flex;
 }
 
 #channel-unjoined {
-	display: none;
-	width: 100vw;
-	height: calc(100vh - 56px);
+  display: none;
+  width: 100vw;
+  height: calc(100vh - 56px);
 }
 
 #channel-unjoined-card {
   width: 99%;
-	height: 99%;
+  height: 99%;
 }
 
 .navbar-brand:hover {
@@ -63,13 +63,13 @@ main {
 
 #sidebar-main-page {
   width: 100vw;
-	display: none;
+  display: none;
 }
 
-#channel, 
+#channel,
 #profile {
-	display: none;
-	width: 100vw;
+  display: none;
+  width: 100vw;
 }
 
 #channel-list {
@@ -85,27 +85,28 @@ main {
   margin-bottom: 0.75rem;
 }
 
-
 #input-container {
   height: 7%;
 }
 
-.user-name-message, .edit-message, .delete-message {
+.user-name-message,
+.edit-message,
+.delete-message {
   font-size: 14px;
 }
 
 #channel {
-	height: calc(100vh - 60px);
+  height: calc(100vh - 60px);
 }
 
 #channel-card {
-	height: 99%;
+  height: 99%;
 }
 
 #all-messages {
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
-	height: 77.5vh;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  height: 77.5vh;
 }
 
 #all-messages {
@@ -115,7 +116,7 @@ main {
 .user-name-message,
 .avatar-message {
   margin-right: 0.75rem;
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .edit-message,
@@ -124,19 +125,19 @@ main {
 .normal-react,
 .cry-react,
 .pin {
-	margin-right: 0.5rem;
-	cursor: pointer;
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .smile-react,
 .normal-react,
 .cry-react,
 .pin {
-	padding-top: 1px !important;
-	padding-bottom: 1px !important;
-	border-radius: 5px;
-	border: 0;
-	background-color: #0d6efd;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
+  border-radius: 5px;
+  border: 0;
+  background-color: #0d6efd;
 }
 
 .user-name-message,
@@ -153,50 +154,49 @@ main {
 .sent-at-message,
 .edited-at-title,
 .edited-at-message {
-	display: inline-block;
-	font-size: 12px;
+  display: inline-block;
+  font-size: 12px;
 }
 
 #single-message {
-	display: none;
+  display: none;
 }
 
 #text-input-message,
 #image-input-message,
 #send-button-message {
-	margin-right: 1rem;
-	margin-bottom: 0.5rem;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 #loading-container {
-	display: none;
+  display: none;
 }
 
 #loading-message {
-	font-size: 14px;
+  font-size: 14px;
 }
 
 #profile {
-	display: none;
-	height: calc(100vh - 56px);
-	width: calc(100vw);
+  display: none;
+  height: calc(100vh - 56px);
+  width: calc(100vw);
 }
 
 #profile-card {
-	width: 600px;
+  width: 600px;
 }
 
 @media (max-width: 600px) {
-	#profile-card {
-		width: 90vw;
-	}
+  #profile-card {
+    width: 90vw;
+  }
 }
 
 .channel-btn {
-	margin: 2px 0;
+  margin: 2px 0;
 }
 
 #message-input-container {
-	height: calc(100% - 78px);
+  height: calc(100% - 78px);
 }
-

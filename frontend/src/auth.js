@@ -1,37 +1,15 @@
-import { BACKEND_PORT } from "./config.js";
-import { errorModalPop, loadMainPage } from "./helpers.js";
+import { fetchRegister, fetchSignin } from "./authApi.js";
+import { EMAIL_REGEX } from "./config.js";
+import { errorModalPop } from "./helpers.js";
 
+// The sign feature
 export const signin = () => {
   const email = document.getElementById("signinEmail").value;
   const password = document.getElementById("signinPassword").value;
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: email,
-      password: password,
-    }),
-  };
-
-  fetch(`http://localhost:${BACKEND_PORT}/auth/login`, options).then((res) => {
-    console.log(res);
-    if (res.ok) {
-      res.json().then((data) => {
-        console.log(data);
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("userId", data.userId);
-        loadMainPage();
-      });
-    } else {
-      res.json().then((data) => {
-        errorModalPop(data.error);
-      });
-    }
-  }).catch((err) => {
-		errorModalPop(err);
-	});
+  fetchSignin(email, password);
 };
 
+// The register feature
 export const register = () => {
   const email = document.getElementById("registerEmail").value;
   const name = document.getElementById("registerName").value;
@@ -39,41 +17,22 @@ export const register = () => {
   const confirmPassword = document.getElementById(
     "registerConfirmPassword"
   ).value;
-
+  // check whether the email, name, password and confirm password valid
+  if (!email.match(EMAIL_REGEX)) {
+    errorModalPop("Invalid email");
+    return;
+  }
   if (password !== confirmPassword) {
     errorModalPop("Please make sure your passwords match.");
     return;
   }
-
+  if (password.length < 6) {
+    errorModalPop("Length of password must be greater than six.");
+    return;
+  }
   if (!name) {
     errorModalPop("Name cannot be empty.");
     return;
   }
-
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email: email,
-      name: name,
-      password: password,
-    }),
-  };
-
-  fetch(`http://localhost:${BACKEND_PORT}/auth/register`, options).then((res) => {
-    if (res.ok) {
-      res.json().then((data) => {
-        localStorage.setItem("token", data.token);
-				localStorage.setItem("userId", data.userId);
-      
-        loadMainPage();
-      });
-    } else {
-      res.json().then((data) => {
-        errorModalPop(data.error);
-      });
-    }
-  }).catch((err) => {
-		errorModalPop(err)
-	});
+  fetchRegister(email, name, password);
 };

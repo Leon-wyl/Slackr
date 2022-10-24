@@ -1,12 +1,5 @@
-import { BACKEND_PORT } from "./config.js";
-// A helper you may want to use when uploading new images to the server.
-import {
-  fileToDataUrl,
-  hideAllPages,
-  loadMainPage,
-} from "./helpers.js";
+import { hideAllPages, loadMainPage } from "./helpers.js";
 import { register, signin } from "./auth.js";
-import { removeAllChildren } from "./helpers.js";
 import {
   createChannel,
   getSingleChannelInfo,
@@ -24,10 +17,19 @@ import {
   loadBigImage,
   clickPin,
   getAllPinnedPosts,
+  react,
 } from "./message.js";
 import { fetchMessages } from "./messagesApi.js";
-import { changePasswordShowState, editProfile, fillInfoToEditProfile, getAllUsers, loadProfile, resetPassword } from "./users.js";
+import {
+  changePasswordShowState,
+  editProfile,
+  fillInfoToEditProfile,
+  getAllUsers,
+  loadProfile,
+  resetPassword,
+} from "./users.js";
 import { fetchInviteUsers } from "./usersApi.js";
+import { fetchLogout } from "./authApi.js";
 
 console.log("Let's go!");
 
@@ -66,6 +68,7 @@ document
   .getElementById("public-channels-list")
   .addEventListener("click", (event) => {
     getSingleChannelInfo(event);
+    // empty the list of selected names and id for inviting new user
     selectedOptionNames.length = 0;
     selectedOptionIds.length = 0;
   });
@@ -74,6 +77,7 @@ document
   .getElementById("private-channels-list")
   .addEventListener("click", (event) => {
     getSingleChannelInfo(event);
+    // empty the list of selected names and id for inviting new user
     selectedOptionNames.length = 0;
     selectedOptionIds.length = 0;
   });
@@ -109,6 +113,7 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
     setAttributeToDeleteModal(event.target.dataset.id);
   } else if (event.target.closest(".user-name-message")) {
     const userId = event.target.dataset.senderid;
+    // load the profile page, close the channel page
     loadProfile(userId);
     document.getElementById("change-password-btn").style.display = "none";
     document.getElementById("edit-profile-btn").style.display = "none";
@@ -116,6 +121,8 @@ document.getElementById("all-messages").addEventListener("click", (event) => {
     loadBigImage(event.target);
   } else if (event.target.closest(".pin")) {
     clickPin(event.target);
+  } else if (event.target.closest(".react")) {
+    react(event.target);
   }
 });
 
@@ -140,18 +147,22 @@ document.getElementById("all-messages").addEventListener("scroll", (e) => {
 
 // Infinite scrolling
 const loadMessage = () => {
+  // Set the loading sign on the top of the message
   const loading = document.getElementById("loading-container").cloneNode(true);
   loading.style.display = "flex";
   const allMsgNode = document.getElementById("all-messages");
   allMsgNode.setAttribute("data-requestflag", "true");
   allMsgNode.insertBefore(loading, allMsgNode.firstChild);
   setTimeout(() => {
+    // simulate loading lagging
     allMsgNode.removeChild(loading);
     allMsgNode.setAttribute("data-requestflag", "false");
     if (allMsgNode.dataset.loadfinish === "true") {
+      // if no more data to load, set the request flag to true
       allMsgNode.setAttribute("data-requestflag", "true");
       return;
     }
+    // get the earliest message number and load again
     const nextPageNumber = Number(allMsgNode.dataset.number);
     const channelId = document.getElementById("channel").dataset.id;
     fetchMessages(channelId, nextPageNumber);
@@ -165,7 +176,7 @@ document.getElementById("invite-button").addEventListener("click", () => {
 // Multiple select dropdown
 document.getElementById("multi-user-select").addEventListener("input", () => {
   const select = document.getElementById("multi-user-select");
-  
+  // Create an empty option at the end of the select
   const hideOption = document.createElement("option");
   hideOption.hidden = true;
   select.appendChild(hideOption);
@@ -173,51 +184,65 @@ document.getElementById("multi-user-select").addEventListener("input", () => {
   let selectedOptionNode = select.options[select.selectedIndex];
   let index = selectedOptionIds.indexOf(selectedOptionNode.dataset.id);
   if (index > -1) {
-    selectedOptionIds.splice(index, 1)
+    // If option is selected, remove it from both arrays
+    selectedOptionIds.splice(index, 1);
     selectedOptionNames.splice(index, 1);
   } else {
-    selectedOptionIds.push(selectedOptionNode.dataset.id)
+    // If option is not selected, push it into both arrays
+    selectedOptionIds.push(selectedOptionNode.dataset.id);
     selectedOptionNames.push(selectedOptionNode.value);
   }
+  // fill the last option with all names
   select.options[select.length - 1].text = selectedOptionNames.toString();
   selectedOptionNames.length > 0
     ? (select.options[select.length - 1].selected = true)
     : (select.options[0].selected = true);
-  console.log(selectedOptionNode.dataset.id)
 });
 
 document.getElementById("invite-modal-button").addEventListener("click", () => {
   fetchInviteUsers(selectedOptionIds);
-})
+});
 
-document.getElementById("profile-btn-navbar").addEventListener('click', () => {
+document.getElementById("profile-btn-navbar").addEventListener("click", () => {
   const userId = Number(localStorage.getItem("userId"));
   loadProfile(userId);
   document.getElementById("change-password-btn").style.display = "flex";
   document.getElementById("edit-profile-btn").style.display = "flex";
-})
+});
 
-document.getElementById("password-show-state").addEventListener('click', (event) => {
-  const node = event.target;
-  changePasswordShowState(node);
-})
+document
+  .getElementById("password-show-state")
+  .addEventListener("click", (event) => {
+    const node = event.target;
+    changePasswordShowState(node);
+  });
 
-document.getElementById("change-password-button").addEventListener('click', () => {
-  resetPassword();
-})
+document
+  .getElementById("change-password-button")
+  .addEventListener("click", () => {
+    resetPassword();
+  });
 
 document.getElementById("edit-profile-btn").addEventListener("click", () => {
   fillInfoToEditProfile();
-})
-
-document.getElementById("profile-edit-submit").addEventListener('click', () => {
-  editProfile();
-})
-
-document.getElementById("image-send-message").addEventListener("change", (event) => {
-  sendImage(event.target);
 });
 
-document.getElementById("all-pinned-message-btn").addEventListener("click", () => {
-  getAllPinnedPosts();
-})
+document.getElementById("profile-edit-submit").addEventListener("click", () => {
+  editProfile();
+});
+
+document
+  .getElementById("image-send-message")
+  .addEventListener("change", (event) => {
+    sendImage(event.target);
+  });
+
+document
+  .getElementById("all-pinned-message-btn")
+  .addEventListener("click", () => {
+    getAllPinnedPosts();
+  });
+
+document.getElementById("logout-btn-navbar").addEventListener("click", () => {
+  fetchLogout();
+});
