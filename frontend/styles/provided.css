@@ -81,7 +81,7 @@ main {
 }
 
 #message-box {
-  height: 83%;
+  height: 85%;
   margin-bottom: 0.75rem;
 }
 
@@ -106,7 +106,7 @@ main {
 #all-messages {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  height: 77.5vh;
+  height: 78vh;
 }
 
 #all-messages {
