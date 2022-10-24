@@ -104,8 +104,8 @@ main {
 }
 
 #all-messages {
-  padding-top: 0 !important;
-  padding-bottom: 0 !important;
+  padding-top: 0;
+  padding-bottom: 0;
   height: 78vh;
 }
 
@@ -133,8 +133,8 @@ main {
 .normal-react,
 .cry-react,
 .pin {
-  padding-top: 1px !important;
-  padding-bottom: 1px !important;
+  padding-top: 1px;
+  padding-bottom: 1px;
   border-radius: 5px;
   border: 0;
   background-color: #0d6efd;
